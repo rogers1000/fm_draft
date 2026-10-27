@@ -1,11 +1,67 @@
 team1,team2,team1_rating,team2_rating,team1_win_expectancy,team2_win_expectancy,expected_gd_team1,favourite,either_provisional
-Heno,Meaks,1520.6,1518.3,0.503,0.497,0.01,Too close to call,True
-Heno,Rogers,1520.6,1507.4,0.519,0.481,0.07,Too close to call,True
-Heno,Mulac,1520.6,1484.8,0.551,0.449,0.18,Heno,True
-Heno,Hendo,1520.6,1472.1,0.569,0.431,0.24,Heno,True
-Meaks,Rogers,1518.3,1507.4,0.516,0.484,0.05,Too close to call,True
-Meaks,Mulac,1518.3,1484.8,0.548,0.452,0.17,Too close to call,True
-Meaks,Hendo,1518.3,1472.1,0.566,0.434,0.23,Meaks,True
-Rogers,Mulac,1507.4,1484.8,0.532,0.468,0.11,Too close to call,True
-Rogers,Hendo,1507.4,1472.1,0.551,0.449,0.18,Rogers,True
-Mulac,Hendo,1484.8,1472.1,0.518,0.482,0.06,Too close to call,True
+Rogers,Meaks,1688.0,1567.3,0.667,0.333,0.6,Rogers,False
+Rogers,Mulac,1688.0,1551.4,0.687,0.313,0.68,Rogers,False
+Rogers,Freddie,1688.0,1518.8,0.726,0.274,0.85,Rogers,False
+Rogers,HonestlyBenjamin,1688.0,1500.0,0.747,0.253,0.94,Rogers,True
+Rogers,HaydenLoggedOut,1688.0,1500.0,0.747,0.253,0.94,Rogers,True
+Rogers,Chairman Tom,1688.0,1487.3,0.761,0.239,1.0,Rogers,False
+Rogers,Sharky,1688.0,1455.5,0.792,0.208,1.16,Rogers,False
+Rogers,Descarte,1688.0,1433.6,0.812,0.188,1.27,Rogers,True
+Rogers,DoctorBenjy,1688.0,1425.0,0.82,0.18,1.32,Rogers,False
+Rogers,Prophet,1688.0,1423.5,0.821,0.179,1.32,Rogers,True
+Rogers,Jynx,1688.0,1395.0,0.844,0.156,1.47,Rogers,False
+Meaks,Mulac,1567.3,1551.4,0.523,0.477,0.08,Too close to call,False
+Meaks,Freddie,1567.3,1518.8,0.569,0.431,0.24,Meaks,False
+Meaks,HonestlyBenjamin,1567.3,1500.0,0.596,0.404,0.34,Meaks,True
+Meaks,HaydenLoggedOut,1567.3,1500.0,0.596,0.404,0.34,Meaks,True
+Meaks,Chairman Tom,1567.3,1487.3,0.613,0.387,0.4,Meaks,False
+Meaks,Sharky,1567.3,1455.5,0.656,0.344,0.56,Meaks,False
+Meaks,Descarte,1567.3,1433.6,0.683,0.317,0.67,Meaks,True
+Meaks,DoctorBenjy,1567.3,1425.0,0.694,0.306,0.71,Meaks,False
+Meaks,Prophet,1567.3,1423.5,0.696,0.304,0.72,Meaks,True
+Meaks,Jynx,1567.3,1395.0,0.729,0.271,0.86,Meaks,False
+Mulac,Freddie,1551.4,1518.8,0.547,0.453,0.16,Too close to call,False
+Mulac,HonestlyBenjamin,1551.4,1500.0,0.573,0.427,0.26,Mulac,True
+Mulac,HaydenLoggedOut,1551.4,1500.0,0.573,0.427,0.26,Mulac,True
+Mulac,Chairman Tom,1551.4,1487.3,0.591,0.409,0.32,Mulac,False
+Mulac,Sharky,1551.4,1455.5,0.635,0.365,0.48,Mulac,False
+Mulac,Descarte,1551.4,1433.6,0.663,0.337,0.59,Mulac,True
+Mulac,DoctorBenjy,1551.4,1425.0,0.674,0.326,0.63,Mulac,False
+Mulac,Prophet,1551.4,1423.5,0.676,0.324,0.64,Mulac,True
+Mulac,Jynx,1551.4,1395.0,0.711,0.289,0.78,Mulac,False
+Freddie,HonestlyBenjamin,1518.8,1500.0,0.527,0.473,0.09,Too close to call,True
+Freddie,HaydenLoggedOut,1518.8,1500.0,0.527,0.473,0.09,Too close to call,True
+Freddie,Chairman Tom,1518.8,1487.3,0.545,0.455,0.16,Too close to call,False
+Freddie,Sharky,1518.8,1455.5,0.59,0.41,0.32,Freddie,False
+Freddie,Descarte,1518.8,1433.6,0.62,0.38,0.43,Freddie,True
+Freddie,DoctorBenjy,1518.8,1425.0,0.632,0.368,0.47,Freddie,False
+Freddie,Prophet,1518.8,1423.5,0.634,0.366,0.48,Freddie,True
+Freddie,Jynx,1518.8,1395.0,0.671,0.329,0.62,Freddie,False
+HonestlyBenjamin,HaydenLoggedOut,1500.0,1500.0,0.5,0.5,0.0,Too close to call,True
+HonestlyBenjamin,Chairman Tom,1500.0,1487.3,0.518,0.482,0.06,Too close to call,True
+HonestlyBenjamin,Sharky,1500.0,1455.5,0.564,0.436,0.22,HonestlyBenjamin,True
+HonestlyBenjamin,Descarte,1500.0,1433.6,0.594,0.406,0.33,HonestlyBenjamin,True
+HonestlyBenjamin,DoctorBenjy,1500.0,1425.0,0.606,0.394,0.38,HonestlyBenjamin,True
+HonestlyBenjamin,Prophet,1500.0,1423.5,0.608,0.392,0.38,HonestlyBenjamin,True
+HonestlyBenjamin,Jynx,1500.0,1395.0,0.647,0.353,0.53,HonestlyBenjamin,True
+HaydenLoggedOut,Chairman Tom,1500.0,1487.3,0.518,0.482,0.06,Too close to call,True
+HaydenLoggedOut,Sharky,1500.0,1455.5,0.564,0.436,0.22,HaydenLoggedOut,True
+HaydenLoggedOut,Descarte,1500.0,1433.6,0.594,0.406,0.33,HaydenLoggedOut,True
+HaydenLoggedOut,DoctorBenjy,1500.0,1425.0,0.606,0.394,0.38,HaydenLoggedOut,True
+HaydenLoggedOut,Prophet,1500.0,1423.5,0.608,0.392,0.38,HaydenLoggedOut,True
+HaydenLoggedOut,Jynx,1500.0,1395.0,0.647,0.353,0.53,HaydenLoggedOut,True
+Chairman Tom,Sharky,1487.3,1455.5,0.546,0.454,0.16,Too close to call,False
+Chairman Tom,Descarte,1487.3,1433.6,0.577,0.423,0.27,Chairman Tom,True
+Chairman Tom,DoctorBenjy,1487.3,1425.0,0.589,0.411,0.31,Chairman Tom,False
+Chairman Tom,Prophet,1487.3,1423.5,0.591,0.409,0.32,Chairman Tom,True
+Chairman Tom,Jynx,1487.3,1395.0,0.63,0.37,0.46,Chairman Tom,False
+Sharky,Descarte,1455.5,1433.6,0.531,0.469,0.11,Too close to call,True
+Sharky,DoctorBenjy,1455.5,1425.0,0.544,0.456,0.15,Too close to call,False
+Sharky,Prophet,1455.5,1423.5,0.546,0.454,0.16,Too close to call,True
+Sharky,Jynx,1455.5,1395.0,0.586,0.414,0.3,Sharky,False
+Descarte,DoctorBenjy,1433.6,1425.0,0.512,0.488,0.04,Too close to call,True
+Descarte,Prophet,1433.6,1423.5,0.515,0.485,0.05,Too close to call,True
+Descarte,Jynx,1433.6,1395.0,0.555,0.445,0.19,Descarte,True
+DoctorBenjy,Prophet,1425.0,1423.5,0.502,0.498,0.01,Too close to call,True
+DoctorBenjy,Jynx,1425.0,1395.0,0.543,0.457,0.15,Too close to call,False
+Prophet,Jynx,1423.5,1395.0,0.541,0.459,0.14,Too close to call,True
