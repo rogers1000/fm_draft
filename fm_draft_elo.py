@@ -44,8 +44,8 @@ Fairness for teams with different numbers of games / opponents
 
 Usage
 -----
-    python elo.py                      # reads all results from RESULTS_URL (GitHub)
-    python elo.py --out-dir output --min-games 5 --dayfirst
+    python elo.py                      # reads all results from RESULTS_URL (Google Sheet)
+    python elo.py --out-dir output --min-games 5
     python elo.py --predict "Team A" "Team B"
 
 CSV format (header names are case-insensitive)
@@ -67,6 +67,7 @@ Home advantage is deliberately NOT used: team1/team2 are interchangeable.
 import argparse
 import math
 import os
+import re
 import sys
 from pathlib import Path
 
@@ -75,8 +76,10 @@ import pandas as pd
 # ---------------------------------------------------------------------------
 # Tunable settings
 # ---------------------------------------------------------------------------
-# Every game lives in this one file; the script always reads the latest version.
-RESULTS_URL = "https://github.com/rogers1000/fm_draft/blob/main/draft_game_results.csv"
+# Every game lives in this Google Sheet; the script always reads the latest version.
+# The sheet must be shared as "Anyone with the link can view".
+RESULTS_URL = ("https://docs.google.com/spreadsheets/d/"
+               "1fiPOeL43SXmzuryRHTDn2l9Qw8KXhIXiQ7cLvQbwNpQ/edit?usp=sharing")
 START_RATING = 1500          # every new team starts here
 K_BASE = 30                  # K for an established team
 PROVISIONAL_MULTIPLIER = 2.0 # new teams' K is this many times K_BASE...
@@ -140,11 +143,29 @@ def rating_change(r_team, r_opp, goals_for, goals_against, games, opp_games):
 # Data loading
 # ---------------------------------------------------------------------------
 def to_raw_url(source: str) -> str:
-    """Turn a GitHub page link (.../blob/...) into the raw file link pandas can read."""
+    """Turn a Google Sheets or GitHub page link into a direct CSV link pandas can read."""
+    sheet = re.match(r"https://docs\.google\.com/spreadsheets/d/([\w-]+)", source)
+    if sheet:
+        gid = re.search(r"[#&?]gid=(\d+)", source)  # a specific tab, if the link names one
+        url = f"https://docs.google.com/spreadsheets/d/{sheet.group(1)}/export?format=csv"
+        return url + (f"&gid={gid.group(1)}" if gid else "")
     if source.startswith("https://github.com/") and "/blob/" in source:
         return (source.replace("https://github.com/", "https://raw.githubusercontent.com/", 1)
                       .replace("/blob/", "/", 1))
     return source
+
+
+def parse_dates(dates: pd.Series, dayfirst: bool) -> pd.Series:
+    """Year-first dates (2026-10-28) are read as written; anything else
+    (28/10/2026, 28 Oct 2026) is read day-first unless dayfirst is False."""
+    text = dates.astype(str).str.strip()
+    year_first = text.str.extract(r"^(\d{4}-\d{1,2}-\d{1,2})", expand=False)
+    iso = pd.to_datetime(year_first, format="%Y-%m-%d", errors="coerce")
+    other = iso.isna()
+    if other.any():
+        iso[other] = pd.to_datetime(text[other], format="mixed", dayfirst=dayfirst,
+                                    errors="coerce")
+    return iso
 
 
 def load_results(source: str, dayfirst: bool) -> pd.DataFrame:
@@ -159,6 +180,7 @@ def load_results(source: str, dayfirst: bool) -> pd.DataFrame:
             sys.exit(f"Missing column for '{canon}'. Expected one of: {aliases}")
         rename[found] = canon
     df = df.rename(columns=rename)[list(rename.values())].copy()
+    df = df.dropna(how="all")  # spreadsheets export their empty rows; ignore them
 
     df["team1"] = df["team1"].astype(str).str.strip()
     df["team2"] = df["team2"].astype(str).str.strip()
@@ -182,7 +204,7 @@ def load_results(source: str, dayfirst: bool) -> pd.DataFrame:
 
     sort_cols = []
     if "date" in df.columns:
-        df["date"] = pd.to_datetime(df["date"], dayfirst=dayfirst, errors="coerce")
+        df["date"] = parse_dates(df["date"], dayfirst)
         undated = df["date"].isna()
         if undated.any():
             print(f"Skipping {undated.sum()} row(s) with unreadable dates: "
@@ -315,16 +337,15 @@ def main():
     p.add_argument("--out-dir", type=Path, default=Path("."), help="where to write outputs")
     p.add_argument("--min-games", type=int, default=0,
                    help="hide teams with fewer games from rankings.csv")
-    p.add_argument("--dayfirst", action="store_true",
-                   help="read dates as DD/MM/YYYY (UK style)")
+    p.add_argument("--monthfirst", action="store_true",
+                   help="read slash dates as MM/DD/YYYY (US style); default is UK DD/MM/YYYY")
     p.add_argument("--predict", nargs=2, metavar=("TEAM1", "TEAM2"),
                    help="show the expected outcome of a match after processing")
     args = p.parse_args()
 
-    # The GitHub Action sets ELO_RESULTS_FILE to its fresh checkout of the CSV,
-    # because raw GitHub links can lag a few minutes behind a push.
+    # ELO_RESULTS_FILE overrides the sheet with a local CSV (handy for testing).
     source = os.environ.get("ELO_RESULTS_FILE") or RESULTS_URL
-    df = load_results(source, args.dayfirst)
+    df = load_results(source, dayfirst=not args.monthfirst)
     teams, history = run(df)
     table = build_table(teams, args.min_games)
 
