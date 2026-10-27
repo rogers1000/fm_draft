@@ -1,10 +1,11 @@
 name: Update Elo rankings
 
 on:
+  schedule:
+    - cron: "0 * * * *" # every hour; GitHub may start scheduled runs a little late
   push:
     branches: [main]
     paths:
-      - draft_game_results.csv
       - fm_draft_elo.py
   workflow_dispatch: # adds a "Run workflow" button on the Actions tab
 
@@ -24,9 +25,7 @@ jobs:
       - name: Install pandas
         run: pip install pandas
 
-      - name: Calculate rankings
-        env:
-          ELO_RESULTS_FILE: draft_game_results.csv
+      - name: Calculate rankings from the Google Sheet
         run: python fm_draft_elo.py --out-dir output
 
       - name: Commit updated rankings
