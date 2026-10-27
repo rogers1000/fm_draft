@@ -6,6 +6,8 @@ Football Elo ranking system
 Reads match results from a CSV and produces:
   * rankings.csv        - current table, one row per team
   * rating_history.csv  - every match with ratings before/after and the change
+  * predictions.csv     - every possible pairing of teams, with win expectancy
+                          and expected goal difference from current ratings
 
 How a rating changes after each match
 -------------------------------------
@@ -84,6 +86,7 @@ SCORE_WEIGHT = 0.4           # share driven by goal difference vs expectation
 POINTS_PER_GOAL = 200        # rating gap that predicts a 1-goal margin
 MARGIN_SOFTNESS = 2.0        # larger = goal surprises saturate more slowly
 MIN_RELIABILITY_DAMPING = 0.5  # your K vs a brand-new opponent is scaled to this
+TOSS_UP_MARGIN = 0.05        # predictions within 45-55% are "Too close to call"
 
 COLUMN_ALIASES = {
     "date": ["date", "match_date", "played"],
@@ -268,6 +271,32 @@ def build_table(teams, min_games: int) -> pd.DataFrame:
     return table
 
 
+def build_predictions(teams, team_names) -> pd.DataFrame:
+    """Every pairing of the given teams (each pair once; no home advantage)."""
+    ordered = sorted(team_names, key=lambda n: -teams[n]["rating"])
+    rows = []
+    for i, t1 in enumerate(ordered):
+        for t2 in ordered[i + 1:]:
+            r1, r2 = teams[t1]["rating"], teams[t2]["rating"]
+            e = expected_result(r1, r2)
+            gd = expected_goal_diff(r1, r2)
+            fav = t1 if r1 >= r2 else t2
+            rows.append({
+                "team1": t1, "team2": t2,
+                "team1_rating": round(r1, 1), "team2_rating": round(r2, 1),
+                "team1_win_expectancy": round(e, 3),
+                "team2_win_expectancy": round(1 - e, 3),
+                "expected_gd_team1": round(gd, 2),
+                "favourite": fav if abs(e - 0.5) > TOSS_UP_MARGIN else "Too close to call",
+                "either_provisional": teams[t1]["games"] < PROVISIONAL_GAMES
+                                      or teams[t2]["games"] < PROVISIONAL_GAMES,
+            })
+    columns = ["team1", "team2", "team1_rating", "team2_rating",
+               "team1_win_expectancy", "team2_win_expectancy",
+               "expected_gd_team1", "favourite", "either_provisional"]
+    return pd.DataFrame(rows, columns=columns)
+
+
 def predict(teams, t1, t2):
     r1 = teams.get(t1, new_team())["rating"]
     r2 = teams.get(t2, new_team())["rating"]
@@ -302,6 +331,8 @@ def main():
     args.out_dir.mkdir(parents=True, exist_ok=True)
     table.to_csv(args.out_dir / "rankings.csv", index=False)
     history.to_csv(args.out_dir / "rating_history.csv", index=False)
+    predictions = build_predictions(teams, table["team"].tolist())
+    predictions.to_csv(args.out_dir / "predictions.csv", index=False)
 
     if table.empty:
         print("No games recorded yet.")
@@ -309,7 +340,8 @@ def main():
         with pd.option_context("display.max_rows", None, "display.width", 140):
             print(table.to_string(index=False))
     print(f"\n{len(df)} matches, {len(teams)} teams. "
-          f"Wrote rankings.csv and rating_history.csv to {args.out_dir.resolve()}")
+          f"Wrote rankings.csv, rating_history.csv and predictions.csv "
+          f"({len(predictions)} pairings) to {args.out_dir.resolve()}")
 
     if args.predict:
         predict(teams, *args.predict)
