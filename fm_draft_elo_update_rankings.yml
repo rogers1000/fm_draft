@@ -1,0 +1,42 @@
+name: Update Elo rankings
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - draft_game_results.csv
+      - elo.py
+  workflow_dispatch: # adds a "Run workflow" button on the Actions tab
+
+permissions:
+  contents: write # lets the workflow commit the outputs back to the repo
+
+jobs:
+  rankings:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install pandas
+        run: pip install pandas
+
+      - name: Calculate rankings
+        env:
+          ELO_RESULTS_FILE: draft_game_results.csv
+        run: python elo.py --out-dir output
+
+      - name: Commit updated rankings
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898+github-actions[bot]@users.noreply.github.com"
+          git add output/
+          if git diff --cached --quiet; then
+            echo "Rankings unchanged."
+          else
+            git commit -m "Update Elo rankings"
+            git push
+          fi
