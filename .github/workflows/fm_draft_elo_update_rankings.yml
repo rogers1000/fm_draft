@@ -5,7 +5,7 @@ on:
     branches: [main]
     paths:
       - draft_game_results.csv
-      - elo.py
+      - fm_draft_elo.py
   workflow_dispatch: # adds a "Run workflow" button on the Actions tab
 
 permissions:
@@ -27,7 +27,7 @@ jobs:
       - name: Calculate rankings
         env:
           ELO_RESULTS_FILE: draft_game_results.csv
-        run: python elo.py --out-dir output
+        run: python fm_draft_elo.py --out-dir output
 
       - name: Commit updated rankings
         run: |
