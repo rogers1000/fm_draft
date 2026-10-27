@@ -10,9 +10,15 @@ Run locally from the repo root:
     pip install -r streamlitdashboard/requirements.txt
     streamlit run streamlitdashboard/dashboard.py
 
+Test with another results file instead of the sheet (from the repo root):
+    ELO_RESULTS_FILE=dummy_draft_game_results.csv streamlit run streamlitdashboard/dashboard.py
+  Windows PowerShell:
+    $env:ELO_RESULTS_FILE="dummy_draft_game_results.csv"; streamlit run streamlitdashboard/dashboard.py
+
 Streamlit Community Cloud: main file path = streamlitdashboard/dashboard.py
 """
 
+import os
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
@@ -62,10 +68,11 @@ LABELS = {
     "last_played": ("Last Played", None),
     # Draft game results
     "date": ("Date", None),
-    "game_order": ("Game No.", "Order of games played on the same day"),
-    "goals1": ("Team 1 Goals", None),
-    "goals2": ("Team 2 Goals", None),
+    "game_order": ("Game Order", "Order of games played on the same day"),
+    "goals1": ("Team 1 Score", None),
+    "goals2": ("Team 2 Score", None),
 }
+RESULTS_COLUMN_ORDER = ["date", "game_order", "team1", "goals1", "goals2", "team2"]
 PCT_COLS = {"team1_win_expectancy", "team2_win_expectancy"}
 
 
@@ -164,6 +171,12 @@ def compute(raw: pd.DataFrame):
 @st.cache_data(ttl=CACHE_SECONDS, show_spinner="Loading results…")
 def load_all():
     note = None
+    test_file = os.environ.get("ELO_RESULTS_FILE")  # same override fm_draft_elo.py uses
+    if test_file:
+        raw = elo.load_results(test_file, dayfirst=True)
+        results, rankings, predictions = compute(raw)
+        note = f"Test mode: showing {Path(test_file).name} (ELO_RESULTS_FILE is set), not the Google Sheet."
+        return results, rankings, predictions, Path(test_file).name, note, datetime.now(timezone.utc)
     try:
         raw = elo.load_results(elo.RESULTS_URL, dayfirst=True)
         source = "Google Sheet"
@@ -278,9 +291,16 @@ def main():
     if note:
         st.warning(note)
 
-    tab_pred, tab_rank, tab_res = st.tabs(["Predictions", "Rankings", "Draft game results"])
+    tab_rank, tab_pred, tab_res = st.tabs(["Rankings", "Predictions", "Results"])
 
-    # --- Predictions: team (either column) + provisional -------------------
+    # --- Tab 1 · Rankings: every column -----------------------------------
+    with tab_rank:
+        if not empty(rankings):
+            with st.expander("Filters", expanded=True):
+                df = generic_filters(rankings, "rank")
+            show_table(df, len(rankings), "rankings", "rank")
+
+    # --- Tab 2 · Predictions: team (either column) + provisional ----------
     with tab_pred:
         if not empty(predictions):
             left, right = st.columns([3, 2])
@@ -295,14 +315,7 @@ def main():
                 df = filter_value(df, prov, choice)
             show_table(df, len(predictions), "predictions", "pred")
 
-    # --- Rankings: every column -------------------------------------------
-    with tab_rank:
-        if not empty(rankings):
-            with st.expander("Filters", expanded=True):
-                df = generic_filters(rankings, "rank")
-            show_table(df, len(rankings), "rankings", "rank")
-
-    # --- Draft game results: team (either column) --------------------------
+    # --- Tab 3 · Results: team (either column) ----------------------------
     with tab_res:
         if not empty(results):
             left, _ = st.columns([3, 2])
@@ -310,7 +323,10 @@ def main():
             order = [c for c in ("date", "game_order") if c in df.columns]
             if order:
                 df = df.sort_values(order, ascending=False)
-            show_table(df, len(results), "draft_game_results", "res")
+            # Date, Game Order, Team 1, Team 1 Score, Team 2 Score, Team 2 (anything else after)
+            first = [c for c in RESULTS_COLUMN_ORDER if c in df.columns]
+            df = df[first + [c for c in df.columns if c not in first]]
+            show_table(df, len(results), "results", "res")
 
 
 if __name__ == "__main__":
