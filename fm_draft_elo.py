@@ -241,7 +241,11 @@ def run(df: pd.DataFrame):
             "team1_change": round(ch_a, 1), "team2_change": round(ch_b, 1),
             "team1_after": round(a["rating"], 1), "team2_after": round(b["rating"], 1),
         })
-    return teams, pd.DataFrame(history)
+    columns = ["date", "game_order", "team1", "team2", "goals1", "goals2",
+               "team1_before", "team2_before", "team1_win_expectancy",
+               "expected_gd_team1", "team1_change", "team2_change",
+               "team1_after", "team2_after"]
+    return teams, pd.DataFrame(history, columns=columns)
 
 
 def build_table(teams, min_games: int) -> pd.DataFrame:
@@ -256,7 +260,9 @@ def build_table(teams, min_games: int) -> pd.DataFrame:
             "provisional": t["games"] < PROVISIONAL_GAMES,
             "last_played": t["last_played"].date() if t["last_played"] is not None else None,
         })
-    table = pd.DataFrame(rows).sort_values("rating", ascending=False)
+    columns = ["team", "rating", "played", "W", "D", "L", "GF", "GA", "GD",
+               "peak_rating", "provisional", "last_played"]
+    table = pd.DataFrame(rows, columns=columns).sort_values("rating", ascending=False)
     table = table[table["played"] >= min_games].reset_index(drop=True)
     table.insert(0, "rank", table.index + 1)
     return table
@@ -297,8 +303,11 @@ def main():
     table.to_csv(args.out_dir / "rankings.csv", index=False)
     history.to_csv(args.out_dir / "rating_history.csv", index=False)
 
-    with pd.option_context("display.max_rows", None, "display.width", 140):
-        print(table.to_string(index=False))
+    if table.empty:
+        print("No games recorded yet.")
+    else:
+        with pd.option_context("display.max_rows", None, "display.width", 140):
+            print(table.to_string(index=False))
     print(f"\n{len(df)} matches, {len(teams)} teams. "
           f"Wrote rankings.csv and rating_history.csv to {args.out_dir.resolve()}")
 
