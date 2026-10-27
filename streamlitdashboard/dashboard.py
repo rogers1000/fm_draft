@@ -33,15 +33,59 @@ TEAM1_NAMES = ("team1", "home", "hometeam")
 TEAM2_NAMES = ("team2", "away", "awayteam")
 PROVISIONAL_NAMES = ("either_provisional", "provisional")
 
-# Nicer display for known columns (unknown columns display as-is).
-PCT = st.column_config.NumberColumn(format="percent")
-COLUMN_CONFIG = {
-    "team1_win_expectancy": PCT,
-    "team2_win_expectancy": PCT,
-    "expected_gd_team1": st.column_config.NumberColumn(format="%+.2f"),
-    "date": st.column_config.DateColumn(format="DD MMM YYYY"),
-    "last_played": st.column_config.DateColumn(format="DD MMM YYYY"),
+# Readable headers: column name → (label, hover tooltip). Columns not listed
+# get an automatic label ("peak_rating" → "Peak Rating").
+LABELS = {
+    # Predictions
+    "team1": ("Team 1", None),
+    "team2": ("Team 2", None),
+    "team1_rating": ("Team 1 Rating", "Current Elo rating"),
+    "team2_rating": ("Team 2 Rating", "Current Elo rating"),
+    "team1_win_expectancy": ("Team 1 Win Chance", "Expected result for Team 1, with a draw counted as half a win"),
+    "team2_win_expectancy": ("Team 2 Win Chance", "Expected result for Team 2, with a draw counted as half a win"),
+    "expected_gd_team1": ("Expected Goal Difference", "Which team the ratings expect to win, and by how many goals"),
+    "favourite": ("Favourite", "'Too close to call' when the win chances are within 45–55%"),
+    "either_provisional": ("Provisional?", "Ticked if either team is still provisional (fewer than 15 games), so the prediction is less reliable"),
+    # Rankings
+    "rank": ("Rank", None),
+    "team": ("Team", None),
+    "rating": ("Rating", "Current Elo rating (everyone starts at 1500)"),
+    "played": ("Played", None),
+    "W": ("Won", None),
+    "D": ("Drawn", None),
+    "L": ("Lost", None),
+    "GF": ("Goals For", None),
+    "GA": ("Goals Against", None),
+    "GD": ("Goal Difference", None),
+    "peak_rating": ("Peak Rating", "Highest rating this team has reached"),
+    "provisional": ("Provisional?", "Fewer than 15 games played, so the rating is still settling"),
+    "last_played": ("Last Played", None),
+    # Draft game results
+    "date": ("Date", None),
+    "game_order": ("Game No.", "Order of games played on the same day"),
+    "goals1": ("Team 1 Goals", None),
+    "goals2": ("Team 2 Goals", None),
 }
+PCT_COLS = {"team1_win_expectancy", "team2_win_expectancy"}
+
+
+def label(col: str) -> str:
+    return LABELS.get(col, (str(col).replace("_", " ").title(), None))[0]
+
+
+def column_config(df: pd.DataFrame) -> dict:
+    """Readable header, tooltip and number/date format for every column."""
+    cfg = {}
+    for col in df.columns:
+        name = label(col)
+        tip = LABELS.get(col, (None, None))[1]
+        if col in PCT_COLS:
+            cfg[col] = st.column_config.NumberColumn(name, help=tip, format="percent")
+        elif pd.api.types.is_datetime64_any_dtype(df[col]):
+            cfg[col] = st.column_config.DateColumn(name, help=tip, format="DD MMM YYYY")
+        else:
+            cfg[col] = st.column_config.Column(name, help=tip)
+    return cfg
 
 
 # ---------------------------------------------------------------------------
@@ -91,11 +135,25 @@ def filter_value(df: pd.DataFrame, col: str, choice: str) -> pd.DataFrame:
     return df[df[col].astype(str) == choice]
 
 
+def describe_gd(gd: float, team1: str, team2: str) -> str:
+    """Team 1-relative goal difference → e.g. 'Kingsmead wins by 0.31' (always positive)."""
+    if pd.isna(gd):
+        return ""
+    if abs(gd) < 0.005:
+        return "Level"
+    winner = team1 if gd > 0 else team2
+    return f"{winner} wins by {abs(gd):.2f}"
+
+
 def compute(raw: pd.DataFrame):
     """Run the Elo system on cleaned results → (results, rankings, predictions)."""
     teams, _history = elo.run(raw)
     rankings = elo.build_table(teams, min_games=0)
     predictions = elo.build_predictions(teams, rankings["team"].tolist())
+    predictions["expected_gd_team1"] = [
+        describe_gd(gd, t1, t2)
+        for gd, t1, t2 in zip(predictions["expected_gd_team1"], predictions["team1"], predictions["team2"])
+    ]
     results = raw.drop(columns=["csv_row"], errors="ignore")
     return clean(results), clean(rankings), clean(predictions)
 
@@ -123,11 +181,10 @@ def load_all():
 # ---------------------------------------------------------------------------
 def show_table(df: pd.DataFrame, total: int, name: str, key: str):
     st.caption(f"Showing **{len(df):,}** of {total:,} rows")
-    config = {c: cfg for c, cfg in COLUMN_CONFIG.items() if c in df.columns}
-    st.dataframe(df, width="stretch", hide_index=True, column_config=config)
+    st.dataframe(df, width="stretch", hide_index=True, column_config=column_config(df))
     st.download_button(
         "Download filtered CSV",
-        df.to_csv(index=False).encode("utf-8"),
+        df.rename(columns=label).to_csv(index=False).encode("utf-8"),
         file_name=f"{name}_filtered.csv",
         mime="text/csv",
         key=f"dl_{key}",
@@ -140,7 +197,7 @@ def team_filter(df: pd.DataFrame, key: str, container) -> pd.DataFrame:
         container.warning(f"Couldn't find team columns. Columns found: {', '.join(df.columns)}")
         return df
     teams = container.multiselect(
-        "Team (matches team1 or team2)",
+        "Team (matches Team 1 or Team 2)",
         team_list(df, c1, c2),
         placeholder="All teams — type to search",
         key=f"teams_{key}",
@@ -158,7 +215,8 @@ def generic_filters(df: pd.DataFrame, key: str) -> pd.DataFrame:
         wkey = f"{key}_{col}"
 
         if pd.api.types.is_bool_dtype(s):
-            pick = box.multiselect(col, [True, False], placeholder="All", key=wkey)
+            pick = box.multiselect(label(col), [True, False], placeholder="All", key=wkey,
+                                   format_func=lambda v: "Yes" if v else "No")
             if pick:
                 out = out[out[col].isin(pick)]
 
@@ -168,7 +226,7 @@ def generic_filters(df: pd.DataFrame, key: str) -> pd.DataFrame:
                 continue
             is_int = pd.api.types.is_integer_dtype(s)
             lo, hi = (int(lo), int(hi)) if is_int else (float(lo), float(hi))
-            rng = box.slider(col, lo, hi, (lo, hi), key=wkey)
+            rng = box.slider(label(col), lo, hi, (lo, hi), key=wkey)
             if rng != (lo, hi):
                 out = out[out[col].between(*rng)]
 
@@ -176,18 +234,18 @@ def generic_filters(df: pd.DataFrame, key: str) -> pd.DataFrame:
             lo, hi = s.min(), s.max()
             if pd.isna(lo):
                 continue
-            rng = box.date_input(col, (lo.date(), hi.date()), key=wkey)
+            rng = box.date_input(label(col), (lo.date(), hi.date()), key=wkey)
             if len(rng) == 2 and rng != (lo.date(), hi.date()):
                 out = out[out[col].between(pd.Timestamp(rng[0]), pd.Timestamp(rng[1]) + pd.Timedelta(days=1))]
 
         elif s.nunique() <= 100:
             opts = sorted(s.dropna().astype(str).unique(), key=str.lower)
-            pick = box.multiselect(col, opts, placeholder="All", key=wkey)
+            pick = box.multiselect(label(col), opts, placeholder="All", key=wkey)
             if pick:
                 out = out[out[col].astype(str).isin(pick)]
 
         else:
-            text = box.text_input(col, placeholder="Contains…", key=wkey)
+            text = box.text_input(label(col), placeholder="Contains…", key=wkey)
             if text:
                 out = out[out[col].astype(str).str.contains(text, case=False, na=False, regex=False)]
     return out
