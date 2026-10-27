@@ -1,1 +1,11 @@
 team1,team2,team1_rating,team2_rating,team1_win_expectancy,team2_win_expectancy,expected_gd_team1,favourite,either_provisional
+Heno,Meaks,1520.6,1518.3,0.503,0.497,0.01,Too close to call,True
+Heno,Rogers,1520.6,1507.4,0.519,0.481,0.07,Too close to call,True
+Heno,Mulac,1520.6,1484.8,0.551,0.449,0.18,Heno,True
+Heno,Hendo,1520.6,1472.1,0.569,0.431,0.24,Heno,True
+Meaks,Rogers,1518.3,1507.4,0.516,0.484,0.05,Too close to call,True
+Meaks,Mulac,1518.3,1484.8,0.548,0.452,0.17,Too close to call,True
+Meaks,Hendo,1518.3,1472.1,0.566,0.434,0.23,Meaks,True
+Rogers,Mulac,1507.4,1484.8,0.532,0.468,0.11,Too close to call,True
+Rogers,Hendo,1507.4,1472.1,0.551,0.449,0.18,Rogers,True
+Mulac,Hendo,1484.8,1472.1,0.518,0.482,0.06,Too close to call,True
