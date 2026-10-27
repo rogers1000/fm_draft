@@ -1,0 +1,121 @@
+date,game_order,team1,team2,goals1,goals2
+2026-09-01,3,Riverside,Kingsmead,3,1
+2026-08-19,1,Harbour Town,Westfield,3,2
+2026-08-20,3,Harbour Town,Riverside,0,1
+2026-09-09,1,Kingsmead,Northbridge,1,1
+2026-08-26,3,Westfield,Northbridge,1,1
+2026-08-16,2,Riverside,Oakvale,2,2
+2026-08-11,2,Kingsmead,Harbour Town,3,1
+2026-08-28,1,Northbridge,Westfield,3,2
+2026-08-17,1,Riverside,Ashford Utd,1,2
+2026-09-02,3,Oakvale,Harbour Town,3,0
+2026-09-02,2,Latecomers FC,Northbridge,1,2
+2026-09-03,1,Riverside,Northbridge,2,2
+2026-08-01,3,Oakvale,Riverside,2,0
+2026-08-31,3,Oakvale,Harbour Town,0,0
+2026-09-07,3,Westfield,Harbour Town,0,1
+2026-08-19,3,Harbour Town,Ashford Utd,0,4
+2026-09-05,2,Westfield,Northbridge,0,2
+2026-09-04,2,Riverside,Latecomers FC,2,2
+2026-08-23,2,Riverside,Harbour Town,3,2
+2026-08-21,3,Kingsmead,Harbour Town,2,1
+2026-09-07,2,Westfield,Latecomers FC,0,2
+2026-08-06,3,Westfield,Riverside,1,0
+2026-08-28,3,Ashford Utd,Kingsmead,0,2
+2026-09-06,1,Westfield,Latecomers FC,1,1
+2026-08-25,2,Harbour Town,Kingsmead,0,3
+2026-09-02,1,Ashford Utd,Kingsmead,0,1
+2026-08-12,3,Riverside,Westfield,2,0
+2026-08-15,3,Northbridge,Westfield,2,0
+2026-08-31,2,Ashford Utd,Oakvale,1,2
+2026-09-08,1,Riverside,Ashford Utd,1,3
+2026-08-12,1,Westfield,Oakvale,1,3
+2026-08-15,1,Riverside,Northbridge,2,1
+2026-08-20,2,Northbridge,Kingsmead,1,1
+2026-08-23,1,Westfield,Kingsmead,2,1
+2026-08-04,2,Westfield,Ashford Utd,1,1
+2026-08-18,3,Westfield,Ashford Utd,0,1
+2026-08-11,3,Northbridge,Kingsmead,0,1
+2026-08-27,3,Riverside,Kingsmead,0,1
+2026-08-13,3,Northbridge,Westfield,1,0
+2026-08-07,2,Riverside,Oakvale,3,1
+2026-09-09,3,Northbridge,Westfield,2,0
+2026-08-10,1,Harbour Town,Northbridge,0,3
+2026-08-13,1,Ashford Utd,Harbour Town,2,1
+2026-09-07,1,Ashford Utd,Oakvale,0,2
+2026-08-14,1,Harbour Town,Ashford Utd,2,3
+2026-08-24,1,Oakvale,Kingsmead,1,1
+2026-08-30,3,Kingsmead,Harbour Town,3,1
+2026-08-29,2,Riverside,Ashford Utd,1,2
+2026-08-14,2,Harbour Town,Kingsmead,2,2
+2026-08-19,2,Harbour Town,Oakvale,0,1
+2026-08-22,3,Kingsmead,Harbour Town,1,0
+2026-08-30,2,Latecomers FC,Ashford Utd,2,0
+2026-08-08,3,Harbour Town,Riverside,0,0
+2026-08-12,2,Ashford Utd,Harbour Town,2,1
+2026-08-27,1,Westfield,Ashford Utd,1,2
+2026-09-05,1,Oakvale,Kingsmead,1,2
+2026-08-02,2,Westfield,Northbridge,0,4
+2026-08-28,2,Kingsmead,Riverside,0,1
+2026-08-06,1,Kingsmead,Oakvale,1,2
+2026-09-04,1,Latecomers FC,Riverside,0,1
+2026-08-14,3,Westfield,Oakvale,3,2
+2026-08-18,1,Riverside,Harbour Town,3,1
+2026-08-16,1,Oakvale,Northbridge,1,4
+2026-09-06,3,Westfield,Ashford Utd,0,0
+2026-08-18,2,Northbridge,Oakvale,0,3
+2026-08-09,3,Oakvale,Kingsmead,0,1
+2026-08-15,2,Ashford Utd,Riverside,2,1
+2026-08-09,1,Ashford Utd,Northbridge,1,3
+2026-09-01,2,Ashford Utd,Latecomers FC,1,2
+2026-08-25,3,Kingsmead,Westfield,3,0
+2026-09-03,2,Westfield,Riverside,1,3
+2026-08-17,2,Westfield,Northbridge,1,2
+2026-08-08,1,Northbridge,Westfield,3,2
+2026-08-24,2,Harbour Town,Oakvale,3,1
+2026-08-02,1,Harbour Town,Riverside,2,2
+2026-09-09,2,Harbour Town,Riverside,0,1
+2026-08-11,1,Oakvale,Northbridge,0,0
+2026-09-08,3,Kingsmead,Oakvale,4,3
+2026-08-16,3,Kingsmead,Harbour Town,1,0
+2026-08-31,1,Harbour Town,Northbridge,1,3
+2026-08-03,3,Northbridge,Westfield,4,0
+2026-08-21,1,Harbour Town,Kingsmead,0,1
+2026-08-01,1,Northbridge,Riverside,2,1
+2026-09-06,2,Oakvale,Westfield,2,0
+2026-08-20,1,Oakvale,Ashford Utd,1,3
+2026-08-08,2,Northbridge,Ashford Utd,2,1
+2026-08-21,2,Ashford Utd,Oakvale,1,2
+2026-08-22,1,Harbour Town,Northbridge,2,3
+2026-08-03,2,Kingsmead,Oakvale,3,1
+2026-09-08,2,Latecomers FC,Riverside,1,0
+2026-08-05,2,Westfield,Ashford Utd,0,3
+2026-08-29,3,Harbour Town,Riverside,2,2
+2026-09-01,1,Northbridge,Oakvale,2,2
+2026-08-30,1,Westfield,Harbour Town,1,3
+2026-08-23,3,Northbridge,Oakvale,0,2
+2026-09-04,3,Northbridge,Westfield,1,0
+2026-08-05,3,Westfield,Riverside,0,2
+2026-08-10,3,Riverside,Northbridge,2,0
+2026-08-10,2,Westfield,Kingsmead,2,3
+2026-08-04,3,Ashford Utd,Kingsmead,2,2
+2026-08-29,1,Oakvale,Westfield,2,2
+2026-08-07,1,Westfield,Harbour Town,2,0
+2026-09-03,3,Westfield,Kingsmead,0,0
+2026-08-07,3,Northbridge,Harbour Town,3,0
+2026-08-17,3,Westfield,Northbridge,1,2
+2026-08-09,2,Oakvale,Northbridge,0,1
+2026-08-03,1,Harbour Town,Riverside,1,2
+2026-08-24,3,Ashford Utd,Harbour Town,2,2
+2026-08-26,2,Kingsmead,Riverside,1,0
+2026-08-01,2,Ashford Utd,Riverside,3,1
+2026-08-06,2,Harbour Town,Ashford Utd,1,2
+2026-08-22,2,Westfield,Northbridge,1,4
+2026-08-27,2,Harbour Town,Westfield,1,2
+2026-08-02,3,Westfield,Oakvale,0,1
+2026-08-26,1,Northbridge,Oakvale,1,1
+2026-08-04,1,Kingsmead,Northbridge,1,1
+2026-08-25,1,Oakvale,Kingsmead,0,1
+2026-08-05,1,Kingsmead,Ashford Utd,0,2
+2026-09-05,3,Riverside,Northbridge,2,1
+2026-08-13,2,Riverside,Ashford Utd,0,1
