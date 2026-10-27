@@ -1,0 +1,29 @@
+team1,team2,team1_rating,team2_rating,team1_win_expectancy,team2_win_expectancy,expected_gd_team1,favourite,either_provisional
+Kingsmead,Northbridge,1613.5,1586.7,0.538,0.462,0.13,Too close to call,False
+Kingsmead,Latecomers FC,1613.5,1551.1,0.589,0.411,0.31,Kingsmead,True
+Kingsmead,Riverside,1613.5,1541.1,0.603,0.397,0.36,Kingsmead,False
+Kingsmead,Ashford Utd,1613.5,1532.4,0.615,0.385,0.41,Kingsmead,False
+Kingsmead,Oakvale,1613.5,1529.6,0.618,0.382,0.42,Kingsmead,False
+Kingsmead,Harbour Town,1613.5,1354.5,0.816,0.184,1.3,Kingsmead,False
+Kingsmead,Westfield,1613.5,1329.5,0.837,0.163,1.42,Kingsmead,False
+Northbridge,Latecomers FC,1586.7,1551.1,0.551,0.449,0.18,Northbridge,True
+Northbridge,Riverside,1586.7,1541.1,0.565,0.435,0.23,Northbridge,False
+Northbridge,Ashford Utd,1586.7,1532.4,0.578,0.422,0.27,Northbridge,False
+Northbridge,Oakvale,1586.7,1529.6,0.581,0.419,0.29,Northbridge,False
+Northbridge,Harbour Town,1586.7,1354.5,0.792,0.208,1.16,Northbridge,False
+Northbridge,Westfield,1586.7,1329.5,0.815,0.185,1.29,Northbridge,False
+Latecomers FC,Riverside,1551.1,1541.1,0.514,0.486,0.05,Too close to call,True
+Latecomers FC,Ashford Utd,1551.1,1532.4,0.527,0.473,0.09,Too close to call,True
+Latecomers FC,Oakvale,1551.1,1529.6,0.531,0.469,0.11,Too close to call,True
+Latecomers FC,Harbour Town,1551.1,1354.5,0.756,0.244,0.98,Latecomers FC,True
+Latecomers FC,Westfield,1551.1,1329.5,0.782,0.218,1.11,Latecomers FC,True
+Riverside,Ashford Utd,1541.1,1532.4,0.513,0.487,0.04,Too close to call,False
+Riverside,Oakvale,1541.1,1529.6,0.517,0.483,0.06,Too close to call,False
+Riverside,Harbour Town,1541.1,1354.5,0.745,0.255,0.93,Riverside,False
+Riverside,Westfield,1541.1,1329.5,0.772,0.228,1.06,Riverside,False
+Ashford Utd,Oakvale,1532.4,1529.6,0.504,0.496,0.01,Too close to call,False
+Ashford Utd,Harbour Town,1532.4,1354.5,0.736,0.264,0.89,Ashford Utd,False
+Ashford Utd,Westfield,1532.4,1329.5,0.763,0.237,1.01,Ashford Utd,False
+Oakvale,Harbour Town,1529.6,1354.5,0.733,0.267,0.88,Oakvale,False
+Oakvale,Westfield,1529.6,1329.5,0.76,0.24,1.0,Oakvale,False
+Harbour Town,Westfield,1354.5,1329.5,0.536,0.464,0.12,Too close to call,False
