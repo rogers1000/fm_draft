@@ -1,9 +1,1 @@
 rank,team,rating,played,W,D,L,GF,GA,GD,peak_rating,provisional,last_played
-1,Kingsmead,1613.5,31,19,7,5,48,28,20,1615.7,False,2026-09-09
-2,Northbridge,1586.7,36,22,8,6,67,36,31,1636.1,False,2026-09-09
-3,Latecomers FC,1551.1,8,4,2,2,11,7,4,1572.6,True,2026-09-08
-4,Riverside,1541.1,33,15,6,12,47,40,7,1567.2,False,2026-09-09
-5,Ashford Utd,1532.4,29,16,4,9,47,35,12,1626.3,False,2026-09-08
-6,Oakvale,1529.6,30,12,7,11,44,40,4,1540.9,False,2026-09-08
-7,Harbour Town,1354.5,35,4,6,25,34,69,-35,1500.0,False,2026-09-09
-8,Westfield,1329.5,38,5,6,27,30,73,-43,1500.0,False,2026-09-09
