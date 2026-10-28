@@ -76,7 +76,7 @@ LABELS = {
     "pregame_prediction": ("Pre-Game Prediction",
                            "Who the ratings favoured before this game, and their win chance "
                            "(a draw counts as half a win). Shows 'Debut for …' when a team "
-                           "was playing its first game, and 'Draw - 50%' when the ratings "
+                           "was playing its first game, and 'Draw - 50.0%' when the ratings "
                            "were level."),
 }
 RESULTS_COLUMN_ORDER = ["date", "game_order", "team1", "team1_before", "goals1",
@@ -209,12 +209,12 @@ def compute(raw: pd.DataFrame):
 
 
 def describe_win_chance(e: float, team1: str, team2: str) -> str:
-    """Team 1's win expectancy → e.g. 'Rogers wins 64%' for whichever team was favoured."""
+    """Team 1's win expectancy → e.g. 'Rogers wins 64.3%' for whichever team was favoured."""
     if pd.isna(e):
         return ""
-    if abs(e - 0.5) < 0.005:
-        return "Draw - 50%"
-    return f"{team1} wins {e:.0%}" if e > 0.5 else f"{team2} wins {1 - e:.0%}"
+    if abs(e - 0.5) < 0.0005:  # near-identical ratings: would show as 50.0% either way
+        return "Draw - 50.0%"
+    return f"{team1} wins {e:.1%}" if e > 0.5 else f"{team2} wins {1 - e:.1%}"
 
 
 # ---------------------------------------------------------------------------
