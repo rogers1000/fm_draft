@@ -1,67 +1,29 @@
 team1,team2,team1_rating,team2_rating,team1_win_expectancy,team2_win_expectancy,expected_gd_team1,favourite,either_provisional
-Rogers,Meaks,1688.0,1567.6,0.667,0.333,0.6,Rogers,False
-Rogers,Mulac,1688.0,1561.8,0.674,0.326,0.63,Rogers,False
-Rogers,Freddie,1688.0,1525.7,0.718,0.282,0.81,Rogers,False
-Rogers,HonestlyBenjamin,1688.0,1500.0,0.747,0.253,0.94,Rogers,True
-Rogers,HaydenLoggedOut,1688.0,1500.0,0.747,0.253,0.94,Rogers,True
-Rogers,Chairman Tom,1688.0,1493.1,0.754,0.246,0.97,Rogers,False
-Rogers,Descarte,1688.0,1459.2,0.789,0.211,1.14,Rogers,True
-Rogers,Sharky,1688.0,1457.5,0.79,0.21,1.15,Rogers,False
-Rogers,Prophet,1688.0,1429.1,0.816,0.184,1.29,Rogers,True
-Rogers,DoctorBenjy,1688.0,1423.1,0.821,0.179,1.32,Rogers,False
-Rogers,Jynx,1688.0,1394.9,0.844,0.156,1.47,Rogers,False
-Meaks,Mulac,1567.6,1561.8,0.508,0.492,0.03,Too close to call,False
-Meaks,Freddie,1567.6,1525.7,0.56,0.44,0.21,Meaks,False
-Meaks,HonestlyBenjamin,1567.6,1500.0,0.596,0.404,0.34,Meaks,True
-Meaks,HaydenLoggedOut,1567.6,1500.0,0.596,0.404,0.34,Meaks,True
-Meaks,Chairman Tom,1567.6,1493.1,0.606,0.394,0.37,Meaks,False
-Meaks,Descarte,1567.6,1459.2,0.651,0.349,0.54,Meaks,True
-Meaks,Sharky,1567.6,1457.5,0.653,0.347,0.55,Meaks,False
-Meaks,Prophet,1567.6,1429.1,0.69,0.31,0.69,Meaks,True
-Meaks,DoctorBenjy,1567.6,1423.1,0.697,0.303,0.72,Meaks,False
-Meaks,Jynx,1567.6,1394.9,0.73,0.27,0.86,Meaks,False
-Mulac,Freddie,1561.8,1525.7,0.552,0.448,0.18,Mulac,False
-Mulac,HonestlyBenjamin,1561.8,1500.0,0.588,0.412,0.31,Mulac,True
-Mulac,HaydenLoggedOut,1561.8,1500.0,0.588,0.412,0.31,Mulac,True
-Mulac,Chairman Tom,1561.8,1493.1,0.598,0.402,0.34,Mulac,False
-Mulac,Descarte,1561.8,1459.2,0.644,0.356,0.51,Mulac,True
-Mulac,Sharky,1561.8,1457.5,0.646,0.354,0.52,Mulac,False
-Mulac,Prophet,1561.8,1429.1,0.682,0.318,0.66,Mulac,True
-Mulac,DoctorBenjy,1561.8,1423.1,0.69,0.31,0.69,Mulac,False
-Mulac,Jynx,1561.8,1394.9,0.723,0.277,0.83,Mulac,False
-Freddie,HonestlyBenjamin,1525.7,1500.0,0.537,0.463,0.13,Too close to call,True
-Freddie,HaydenLoggedOut,1525.7,1500.0,0.537,0.463,0.13,Too close to call,True
-Freddie,Chairman Tom,1525.7,1493.1,0.547,0.453,0.16,Too close to call,False
-Freddie,Descarte,1525.7,1459.2,0.595,0.405,0.33,Freddie,True
-Freddie,Sharky,1525.7,1457.5,0.597,0.403,0.34,Freddie,False
-Freddie,Prophet,1525.7,1429.1,0.636,0.364,0.48,Freddie,True
-Freddie,DoctorBenjy,1525.7,1423.1,0.644,0.356,0.51,Freddie,False
-Freddie,Jynx,1525.7,1394.9,0.68,0.32,0.65,Freddie,False
-HonestlyBenjamin,HaydenLoggedOut,1500.0,1500.0,0.5,0.5,0.0,Too close to call,True
-HonestlyBenjamin,Chairman Tom,1500.0,1493.1,0.51,0.49,0.03,Too close to call,True
-HonestlyBenjamin,Descarte,1500.0,1459.2,0.559,0.441,0.2,HonestlyBenjamin,True
-HonestlyBenjamin,Sharky,1500.0,1457.5,0.561,0.439,0.21,HonestlyBenjamin,True
-HonestlyBenjamin,Prophet,1500.0,1429.1,0.601,0.399,0.35,HonestlyBenjamin,True
-HonestlyBenjamin,DoctorBenjy,1500.0,1423.1,0.609,0.391,0.38,HonestlyBenjamin,True
-HonestlyBenjamin,Jynx,1500.0,1394.9,0.647,0.353,0.53,HonestlyBenjamin,True
-HaydenLoggedOut,Chairman Tom,1500.0,1493.1,0.51,0.49,0.03,Too close to call,True
-HaydenLoggedOut,Descarte,1500.0,1459.2,0.559,0.441,0.2,HaydenLoggedOut,True
-HaydenLoggedOut,Sharky,1500.0,1457.5,0.561,0.439,0.21,HaydenLoggedOut,True
-HaydenLoggedOut,Prophet,1500.0,1429.1,0.601,0.399,0.35,HaydenLoggedOut,True
-HaydenLoggedOut,DoctorBenjy,1500.0,1423.1,0.609,0.391,0.38,HaydenLoggedOut,True
-HaydenLoggedOut,Jynx,1500.0,1394.9,0.647,0.353,0.53,HaydenLoggedOut,True
-Chairman Tom,Descarte,1493.1,1459.2,0.549,0.451,0.17,Too close to call,True
-Chairman Tom,Sharky,1493.1,1457.5,0.551,0.449,0.18,Chairman Tom,False
-Chairman Tom,Prophet,1493.1,1429.1,0.591,0.409,0.32,Chairman Tom,True
-Chairman Tom,DoctorBenjy,1493.1,1423.1,0.599,0.401,0.35,Chairman Tom,False
-Chairman Tom,Jynx,1493.1,1394.9,0.638,0.362,0.49,Chairman Tom,False
-Descarte,Sharky,1459.2,1457.5,0.502,0.498,0.01,Too close to call,True
-Descarte,Prophet,1459.2,1429.1,0.543,0.457,0.15,Too close to call,True
-Descarte,DoctorBenjy,1459.2,1423.1,0.552,0.448,0.18,Descarte,True
-Descarte,Jynx,1459.2,1394.9,0.591,0.409,0.32,Descarte,True
-Sharky,Prophet,1457.5,1429.1,0.541,0.459,0.14,Too close to call,True
-Sharky,DoctorBenjy,1457.5,1423.1,0.549,0.451,0.17,Too close to call,False
-Sharky,Jynx,1457.5,1394.9,0.589,0.411,0.31,Sharky,False
-Prophet,DoctorBenjy,1429.1,1423.1,0.509,0.491,0.03,Too close to call,True
-Prophet,Jynx,1429.1,1394.9,0.549,0.451,0.17,Too close to call,True
-DoctorBenjy,Jynx,1423.1,1394.9,0.54,0.46,0.14,Too close to call,False
+DoctorBenjy,SYC,1519.9,1519.9,0.5,0.5,0.0,Too close to call,True
+DoctorBenjy,Lollujo,1519.9,1518.1,0.502,0.498,0.01,Too close to call,True
+DoctorBenjy,Arthur Ray,1519.9,1500.0,0.529,0.471,0.1,Too close to call,True
+DoctorBenjy,Clayts,1519.9,1500.0,0.529,0.471,0.1,Too close to call,True
+DoctorBenjy,Zealand,1519.9,1481.9,0.554,0.446,0.19,DoctorBenjy,True
+DoctorBenjy,FM Guru,1519.9,1480.1,0.557,0.443,0.2,DoctorBenjy,True
+DoctorBenjy,BigRobbo,1519.9,1480.1,0.557,0.443,0.2,DoctorBenjy,True
+SYC,Lollujo,1519.9,1518.1,0.502,0.498,0.01,Too close to call,True
+SYC,Arthur Ray,1519.9,1500.0,0.529,0.471,0.1,Too close to call,True
+SYC,Clayts,1519.9,1500.0,0.529,0.471,0.1,Too close to call,True
+SYC,Zealand,1519.9,1481.9,0.554,0.446,0.19,SYC,True
+SYC,FM Guru,1519.9,1480.1,0.557,0.443,0.2,SYC,True
+SYC,BigRobbo,1519.9,1480.1,0.557,0.443,0.2,SYC,True
+Lollujo,Arthur Ray,1518.1,1500.0,0.526,0.474,0.09,Too close to call,True
+Lollujo,Clayts,1518.1,1500.0,0.526,0.474,0.09,Too close to call,True
+Lollujo,Zealand,1518.1,1481.9,0.552,0.448,0.18,Lollujo,True
+Lollujo,FM Guru,1518.1,1480.1,0.554,0.446,0.19,Lollujo,True
+Lollujo,BigRobbo,1518.1,1480.1,0.554,0.446,0.19,Lollujo,True
+Arthur Ray,Clayts,1500.0,1500.0,0.5,0.5,0.0,Too close to call,True
+Arthur Ray,Zealand,1500.0,1481.9,0.526,0.474,0.09,Too close to call,True
+Arthur Ray,FM Guru,1500.0,1480.1,0.529,0.471,0.1,Too close to call,True
+Arthur Ray,BigRobbo,1500.0,1480.1,0.529,0.471,0.1,Too close to call,True
+Clayts,Zealand,1500.0,1481.9,0.526,0.474,0.09,Too close to call,True
+Clayts,FM Guru,1500.0,1480.1,0.529,0.471,0.1,Too close to call,True
+Clayts,BigRobbo,1500.0,1480.1,0.529,0.471,0.1,Too close to call,True
+Zealand,FM Guru,1481.9,1480.1,0.502,0.498,0.01,Too close to call,True
+Zealand,BigRobbo,1481.9,1480.1,0.502,0.498,0.01,Too close to call,True
+FM Guru,BigRobbo,1480.1,1480.1,0.5,0.5,0.0,Too close to call,True
