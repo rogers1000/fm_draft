@@ -1,29 +1,29 @@
 team1,team2,team1_rating,team2_rating,team1_win_expectancy,team2_win_expectancy,expected_gd_team1,favourite,either_provisional
-DoctorBenjy,SYC,1519.9,1519.9,0.5,0.5,0.0,Too close to call,True
-DoctorBenjy,Lollujo,1519.9,1518.1,0.502,0.498,0.01,Too close to call,True
-DoctorBenjy,Arthur Ray,1519.9,1500.0,0.529,0.471,0.1,Too close to call,True
-DoctorBenjy,Clayts,1519.9,1500.0,0.529,0.471,0.1,Too close to call,True
-DoctorBenjy,Zealand,1519.9,1481.9,0.554,0.446,0.19,DoctorBenjy,True
-DoctorBenjy,FM Guru,1519.9,1480.1,0.557,0.443,0.2,DoctorBenjy,True
-DoctorBenjy,BigRobbo,1519.9,1480.1,0.557,0.443,0.2,DoctorBenjy,True
-SYC,Lollujo,1519.9,1518.1,0.502,0.498,0.01,Too close to call,True
-SYC,Arthur Ray,1519.9,1500.0,0.529,0.471,0.1,Too close to call,True
-SYC,Clayts,1519.9,1500.0,0.529,0.471,0.1,Too close to call,True
-SYC,Zealand,1519.9,1481.9,0.554,0.446,0.19,SYC,True
-SYC,FM Guru,1519.9,1480.1,0.557,0.443,0.2,SYC,True
-SYC,BigRobbo,1519.9,1480.1,0.557,0.443,0.2,SYC,True
-Lollujo,Arthur Ray,1518.1,1500.0,0.526,0.474,0.09,Too close to call,True
-Lollujo,Clayts,1518.1,1500.0,0.526,0.474,0.09,Too close to call,True
-Lollujo,Zealand,1518.1,1481.9,0.552,0.448,0.18,Lollujo,True
-Lollujo,FM Guru,1518.1,1480.1,0.554,0.446,0.19,Lollujo,True
-Lollujo,BigRobbo,1518.1,1480.1,0.554,0.446,0.19,Lollujo,True
-Arthur Ray,Clayts,1500.0,1500.0,0.5,0.5,0.0,Too close to call,True
-Arthur Ray,Zealand,1500.0,1481.9,0.526,0.474,0.09,Too close to call,True
-Arthur Ray,FM Guru,1500.0,1480.1,0.529,0.471,0.1,Too close to call,True
-Arthur Ray,BigRobbo,1500.0,1480.1,0.529,0.471,0.1,Too close to call,True
-Clayts,Zealand,1500.0,1481.9,0.526,0.474,0.09,Too close to call,True
-Clayts,FM Guru,1500.0,1480.1,0.529,0.471,0.1,Too close to call,True
-Clayts,BigRobbo,1500.0,1480.1,0.529,0.471,0.1,Too close to call,True
-Zealand,FM Guru,1481.9,1480.1,0.502,0.498,0.01,Too close to call,True
-Zealand,BigRobbo,1481.9,1480.1,0.502,0.498,0.01,Too close to call,True
-FM Guru,BigRobbo,1480.1,1480.1,0.5,0.5,0.0,Too close to call,True
+Lollujo,DoctorBenjy,1535.6,1534.4,0.502,0.498,0.01,Too close to call,True
+Lollujo,Arthur Ray,1535.6,1517.4,0.526,0.474,0.09,Too close to call,True
+Lollujo,SYC,1535.6,1505.3,0.543,0.457,0.15,Too close to call,True
+Lollujo,Clayts,1535.6,1482.6,0.576,0.424,0.27,Lollujo,True
+Lollujo,BigRobbo,1535.6,1480.1,0.579,0.421,0.28,Lollujo,True
+Lollujo,FM Guru,1535.6,1480.1,0.579,0.421,0.28,Lollujo,True
+Lollujo,Zealand,1535.6,1464.4,0.601,0.399,0.36,Lollujo,True
+DoctorBenjy,Arthur Ray,1534.4,1517.4,0.524,0.476,0.08,Too close to call,True
+DoctorBenjy,SYC,1534.4,1505.3,0.542,0.458,0.15,Too close to call,True
+DoctorBenjy,Clayts,1534.4,1482.6,0.574,0.426,0.26,DoctorBenjy,True
+DoctorBenjy,BigRobbo,1534.4,1480.1,0.577,0.423,0.27,DoctorBenjy,True
+DoctorBenjy,FM Guru,1534.4,1480.1,0.577,0.423,0.27,DoctorBenjy,True
+DoctorBenjy,Zealand,1534.4,1464.4,0.599,0.401,0.35,DoctorBenjy,True
+Arthur Ray,SYC,1517.4,1505.3,0.517,0.483,0.06,Too close to call,True
+Arthur Ray,Clayts,1517.4,1482.6,0.55,0.45,0.17,Arthur Ray,True
+Arthur Ray,BigRobbo,1517.4,1480.1,0.553,0.447,0.19,Arthur Ray,True
+Arthur Ray,FM Guru,1517.4,1480.1,0.553,0.447,0.19,Arthur Ray,True
+Arthur Ray,Zealand,1517.4,1464.4,0.576,0.424,0.27,Arthur Ray,True
+SYC,Clayts,1505.3,1482.6,0.533,0.467,0.11,Too close to call,True
+SYC,BigRobbo,1505.3,1480.1,0.536,0.464,0.13,Too close to call,True
+SYC,FM Guru,1505.3,1480.1,0.536,0.464,0.13,Too close to call,True
+SYC,Zealand,1505.3,1464.4,0.559,0.441,0.2,SYC,True
+Clayts,BigRobbo,1482.6,1480.1,0.503,0.497,0.01,Too close to call,True
+Clayts,FM Guru,1482.6,1480.1,0.503,0.497,0.01,Too close to call,True
+Clayts,Zealand,1482.6,1464.4,0.526,0.474,0.09,Too close to call,True
+BigRobbo,FM Guru,1480.1,1480.1,0.5,0.5,0.0,Too close to call,True
+BigRobbo,Zealand,1480.1,1464.4,0.523,0.477,0.08,Too close to call,True
+FM Guru,Zealand,1480.1,1464.4,0.523,0.477,0.08,Too close to call,True
