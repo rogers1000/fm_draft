@@ -12,11 +12,18 @@ on:
 permissions:
   contents: write # lets the workflow commit the outputs back to the repo
 
+# Only one run at a time: a new run waits for the current one instead of racing it.
+concurrency:
+  group: update-elo-rankings
+  cancel-in-progress: false
+
 jobs:
   rankings:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: main # always start from the latest main, not the commit that triggered the run
 
       - uses: actions/setup-python@v5
         with:
@@ -35,7 +42,21 @@ jobs:
           git add output/
           if git diff --cached --quiet; then
             echo "Rankings unchanged."
-          else
-            git commit -m "Update Elo rankings"
-            git push
+            exit 0
           fi
+          git commit -m "Update Elo rankings"
+
+          # If main moved on while this run was working (e.g. you pushed an edit),
+          # replay this commit on top of it and try again. "-X theirs" keeps this
+          # run's freshly calculated output/ files if both sides changed them.
+          for attempt in 1 2 3 4 5; do
+            git pull --rebase -X theirs origin main
+            if git push origin HEAD:main; then
+              echo "Pushed on attempt $attempt."
+              exit 0
+            fi
+            echo "Push rejected (attempt $attempt), retrying..."
+            sleep $((attempt * 5))
+          done
+          echo "Could not push after 5 attempts."
+          exit 1
