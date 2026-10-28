@@ -71,8 +71,16 @@ LABELS = {
     "game_order": ("Game Order", "Order of games played on the same day"),
     "goals1": ("Team 1 Score", None),
     "goals2": ("Team 2 Score", None),
+    "team1_before": ("Team 1 Pre-Game Elo", "Team 1's rating going into this game"),
+    "team2_before": ("Team 2 Pre-Game Elo", "Team 2's rating going into this game"),
+    "pregame_prediction": ("Pre-Game Prediction",
+                           "Who the ratings favoured before this game, and their win chance "
+                           "(a draw counts as half a win). Shows 'Debut for …' when a team "
+                           "was playing its first game, and 'Draw - 50%' when the ratings "
+                           "were level."),
 }
-RESULTS_COLUMN_ORDER = ["date", "game_order", "team1", "goals1", "goals2", "team2"]
+RESULTS_COLUMN_ORDER = ["date", "game_order", "team1", "team1_before", "goals1",
+                        "goals2", "team2_before", "team2", "pregame_prediction"]
 PCT_COLS = {"team1_win_expectancy", "team2_win_expectancy"}
 
 
@@ -171,15 +179,42 @@ def describe_gd(gd: float, team1: str, team2: str) -> str:
 
 def compute(raw: pd.DataFrame):
     """Run the Elo system on cleaned results → (results, rankings, predictions)."""
-    teams, _history = elo.run(raw)
+    teams, history = elo.run(raw)
     rankings = elo.build_table(teams, min_games=0)
     predictions = elo.build_predictions(teams, rankings["team"].tolist())
     predictions["expected_gd_team1"] = [
         describe_gd(gd, t1, t2)
         for gd, t1, t2 in zip(predictions["expected_gd_team1"], predictions["team1"], predictions["team2"])
     ]
-    results = raw.drop(columns=["csv_row"], errors="ignore")
+    results = raw.drop(columns=["csv_row"], errors="ignore").reset_index(drop=True)
+    # elo.run processes games in the same order as raw, so history lines up row for row.
+    results["team1_before"] = history["team1_before"].to_numpy()
+    results["team2_before"] = history["team2_before"].to_numpy()
+    # Count each team's earlier games: a debutant's 1500 start rating says nothing yet,
+    # so those games are labelled as debuts instead of given a prediction.
+    played: dict[str, int] = {}
+    predictions_text = []
+    for e, t1, t2 in zip(history["team1_win_expectancy"], results["team1"], results["team2"]):
+        debut1, debut2 = played.get(t1, 0) == 0, played.get(t2, 0) == 0
+        if debut1 and debut2:
+            predictions_text.append("Debut for both teams")
+        elif debut1 or debut2:
+            predictions_text.append(f"Debut for {t1 if debut1 else t2}")
+        else:
+            predictions_text.append(describe_win_chance(e, t1, t2))
+        played[t1] = played.get(t1, 0) + 1
+        played[t2] = played.get(t2, 0) + 1
+    results["pregame_prediction"] = predictions_text
     return clean(results), clean(rankings), clean(predictions)
+
+
+def describe_win_chance(e: float, team1: str, team2: str) -> str:
+    """Team 1's win expectancy → e.g. 'Rogers wins 64%' for whichever team was favoured."""
+    if pd.isna(e):
+        return ""
+    if abs(e - 0.5) < 0.005:
+        return "Draw - 50%"
+    return f"{team1} wins {e:.0%}" if e > 0.5 else f"{team2} wins {1 - e:.0%}"
 
 
 # ---------------------------------------------------------------------------
@@ -221,22 +256,30 @@ def show_table(df: pd.DataFrame, total: int, name: str, key: str):
     )
 
 
-def team_filter(df: pd.DataFrame, key: str, container) -> tuple[pd.DataFrame, list[str]]:
-    c1, c2 = find_col(df, TEAM1_NAMES), find_col(df, TEAM2_NAMES)
-    if not (c1 and c2):
-        container.warning(f"Couldn't find team columns. Columns found: {', '.join(df.columns)}")
-        return df, []
-    teams = container.multiselect(
+def global_team_filter(rankings: pd.DataFrame, results: pd.DataFrame) -> list[str]:
+    """One team filter in the sidebar that applies to every tab."""
+    names = set(rankings["team"].astype(str)) if "team" in rankings else set()
+    if {"team1", "team2"} <= set(results.columns):
+        names |= set(team_list(results, "team1", "team2"))
+    st.sidebar.header("Filters")
+    teams = st.sidebar.multiselect(
         "Team",
-        team_list(df, c1, c2),
+        sorted(names, key=str.lower),
         placeholder="All teams — type to search",
-        key=f"teams_{key}",
-        help="One team: all its games, as Team 1 or Team 2. "
+        key="teams_global",
+        help="Applies to every tab. One team: all its games, as Team 1 or Team 2. "
              "Two teams: head to head, only games between them.",
     )
-    if len(teams) >= 2:
-        container.caption("Head to head: " + " vs ".join(teams))
-    return filter_teams(df, c1, c2, teams), teams
+    if len(teams) == 1:
+        st.sidebar.caption(f"Showing {teams[0]} on every tab.")
+    elif len(teams) >= 2:
+        st.sidebar.caption("Head to head: " + " vs ".join(teams))
+    return teams
+
+
+def by_teams(df: pd.DataFrame, teams: list[str]) -> pd.DataFrame:
+    c1, c2 = find_col(df, TEAM1_NAMES), find_col(df, TEAM2_NAMES)
+    return filter_teams(df, c1, c2, teams) if c1 and c2 else df
 
 
 def show_head_to_head(df: pd.DataFrame, a: str, b: str):
@@ -325,20 +368,31 @@ def main():
     if note:
         st.warning(note)
 
+    teams = global_team_filter(rankings, results)  # sidebar; applies to every tab
+
     tab_rank, tab_pred, tab_res = st.tabs(["Rankings", "Predictions", "Results"])
 
-    # --- Tab 1 · Rankings: every column -----------------------------------
+    # --- Tab 1 · Rankings: selected teams pinned on top + every-column filters
     with tab_rank:
         if not empty(rankings):
-            with st.expander("Filters", expanded=True):
+            if teams:
+                picked = rankings[rankings["team"].astype(str).isin(teams)]
+                st.subheader("Selected team" + ("s" if len(teams) > 1 else ""))
+                if picked.empty:
+                    st.info("No ranking yet for: " + ", ".join(teams))
+                else:
+                    st.dataframe(picked, width="stretch", hide_index=True,
+                                 column_config=column_config(picked))
+                st.subheader("All teams")
+            with st.expander("Filters", expanded=not teams):
                 df = generic_filters(rankings, "rank")
             show_table(df, len(rankings), "rankings", "rank")
 
-    # --- Tab 2 · Predictions: team (either column) + provisional ----------
+    # --- Tab 2 · Predictions: global team filter + provisional ------------
     with tab_pred:
         if not empty(predictions):
-            left, right = st.columns([3, 2])
-            df, _teams = team_filter(predictions, "pred", left)
+            df = by_teams(predictions, teams)
+            _, right = st.columns([3, 2])
             prov = find_col(predictions, PROVISIONAL_NAMES)
             if prov:
                 values = sorted(predictions[prov].dropna().astype(str).unique())
@@ -349,11 +403,10 @@ def main():
                 df = filter_value(df, prov, choice)
             show_table(df, len(predictions), "predictions", "pred")
 
-    # --- Tab 3 · Results: team (either column) ----------------------------
+    # --- Tab 3 · Results: global team filter (+ head-to-head record) ------
     with tab_res:
         if not empty(results):
-            left, _ = st.columns([3, 2])
-            df, teams = team_filter(results, "res", left)
+            df = by_teams(results, teams)
             if len(teams) == 2:
                 show_head_to_head(df, *teams)
             order = [c for c in ("date", "game_order") if c in df.columns]
