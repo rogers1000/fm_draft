@@ -1,17 +1,17 @@
 team1,team2,team1_rating,team2_rating,team1_win_expectancy,team2_win_expectancy,expected_gd_team1,favourite,either_provisional
-Arthur Ray,DoctorBenjy,1531.8,1519.3,0.518,0.482,0.06,Too close to call,True
-Arthur Ray,Lollujo,1531.8,1518.1,0.52,0.48,0.07,Too close to call,True
-Arthur Ray,FM Guru,1531.8,1498.3,0.548,0.452,0.17,Too close to call,True
-Arthur Ray,BigRobbo,1531.8,1495.9,0.551,0.449,0.18,Arthur Ray,True
-Arthur Ray,SYC,1531.8,1489.5,0.561,0.439,0.21,Arthur Ray,True
-Arthur Ray,Zealand,1531.8,1479.9,0.574,0.426,0.26,Arthur Ray,True
-Arthur Ray,Clayts,1531.8,1467.1,0.592,0.408,0.32,Arthur Ray,True
-DoctorBenjy,Lollujo,1519.3,1518.1,0.502,0.498,0.01,Too close to call,True
-DoctorBenjy,FM Guru,1519.3,1498.3,0.53,0.47,0.11,Too close to call,True
-DoctorBenjy,BigRobbo,1519.3,1495.9,0.534,0.466,0.12,Too close to call,True
-DoctorBenjy,SYC,1519.3,1489.5,0.543,0.457,0.15,Too close to call,True
-DoctorBenjy,Zealand,1519.3,1479.9,0.557,0.443,0.2,DoctorBenjy,True
-DoctorBenjy,Clayts,1519.3,1467.1,0.575,0.425,0.26,DoctorBenjy,True
+Arthur Ray,DoctorBenjy,1531.1,1520.0,0.516,0.484,0.06,Too close to call,True
+Arthur Ray,Lollujo,1531.1,1518.1,0.519,0.481,0.07,Too close to call,True
+Arthur Ray,FM Guru,1531.1,1498.3,0.547,0.453,0.16,Too close to call,True
+Arthur Ray,BigRobbo,1531.1,1495.9,0.55,0.45,0.18,Arthur Ray,True
+Arthur Ray,SYC,1531.1,1489.5,0.56,0.44,0.21,Arthur Ray,True
+Arthur Ray,Zealand,1531.1,1479.9,0.573,0.427,0.26,Arthur Ray,True
+Arthur Ray,Clayts,1531.1,1467.1,0.591,0.409,0.32,Arthur Ray,True
+DoctorBenjy,Lollujo,1520.0,1518.1,0.503,0.497,0.01,Too close to call,True
+DoctorBenjy,FM Guru,1520.0,1498.3,0.531,0.469,0.11,Too close to call,True
+DoctorBenjy,BigRobbo,1520.0,1495.9,0.535,0.465,0.12,Too close to call,True
+DoctorBenjy,SYC,1520.0,1489.5,0.544,0.456,0.15,Too close to call,True
+DoctorBenjy,Zealand,1520.0,1479.9,0.558,0.442,0.2,DoctorBenjy,True
+DoctorBenjy,Clayts,1520.0,1467.1,0.576,0.424,0.26,DoctorBenjy,True
 Lollujo,FM Guru,1518.1,1498.3,0.528,0.472,0.1,Too close to call,True
 Lollujo,BigRobbo,1518.1,1495.9,0.532,0.468,0.11,Too close to call,True
 Lollujo,SYC,1518.1,1489.5,0.541,0.459,0.14,Too close to call,True
