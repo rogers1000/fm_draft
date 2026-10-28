@@ -129,11 +129,28 @@ def team_list(df: pd.DataFrame, c1: str, c2: str) -> list[str]:
 
 
 def filter_teams(df: pd.DataFrame, c1: str, c2: str, teams: list[str]) -> pd.DataFrame:
-    """Keep rows where any selected team appears in EITHER team column."""
+    """
+    No teams  → every row.
+    One team  → every row that team is in, as Team 1 or Team 2.
+    Two+ teams → head to head: only rows where BOTH sides are selected teams.
+    """
     if not teams:
         return df
-    mask = df[c1].astype(str).str.strip().isin(teams) | df[c2].astype(str).str.strip().isin(teams)
-    return df[mask]
+    side1 = df[c1].astype(str).str.strip().isin(teams)
+    side2 = df[c2].astype(str).str.strip().isin(teams)
+    return df[side1 | side2] if len(teams) == 1 else df[side1 & side2]
+
+
+def head_to_head(results: pd.DataFrame, a: str, b: str) -> dict:
+    """Record between two teams from a results table (goals1/goals2 columns)."""
+    rec = {"played": 0, a: 0, "draws": 0, b: 0, f"{a}_goals": 0, f"{b}_goals": 0}
+    for t1, t2, g1, g2 in results[["team1", "team2", "goals1", "goals2"]].itertuples(index=False):
+        ga, gb = (g1, g2) if t1 == a else (g2, g1)
+        rec["played"] += 1
+        rec[f"{a}_goals"] += ga
+        rec[f"{b}_goals"] += gb
+        rec[a if ga > gb else b if gb > ga else "draws"] += 1
+    return rec
 
 
 def filter_value(df: pd.DataFrame, col: str, choice: str) -> pd.DataFrame:
@@ -204,18 +221,35 @@ def show_table(df: pd.DataFrame, total: int, name: str, key: str):
     )
 
 
-def team_filter(df: pd.DataFrame, key: str, container) -> pd.DataFrame:
+def team_filter(df: pd.DataFrame, key: str, container) -> tuple[pd.DataFrame, list[str]]:
     c1, c2 = find_col(df, TEAM1_NAMES), find_col(df, TEAM2_NAMES)
     if not (c1 and c2):
         container.warning(f"Couldn't find team columns. Columns found: {', '.join(df.columns)}")
-        return df
+        return df, []
     teams = container.multiselect(
-        "Team (matches Team 1 or Team 2)",
+        "Team",
         team_list(df, c1, c2),
         placeholder="All teams — type to search",
         key=f"teams_{key}",
+        help="One team: all its games, as Team 1 or Team 2. "
+             "Two teams: head to head, only games between them.",
     )
-    return filter_teams(df, c1, c2, teams)
+    if len(teams) >= 2:
+        container.caption("Head to head: " + " vs ".join(teams))
+    return filter_teams(df, c1, c2, teams), teams
+
+
+def show_head_to_head(df: pd.DataFrame, a: str, b: str):
+    rec = head_to_head(df, a, b)
+    if not rec["played"]:
+        st.info(f"{a} and {b} haven't played each other yet.")
+        return
+    cols = st.columns(4)
+    cols[0].metric("Played", rec["played"])
+    cols[1].metric(f"{a} Wins", rec[a])
+    cols[2].metric("Draws", rec["draws"])
+    cols[3].metric(f"{b} Wins", rec[b])
+    st.caption(f"Goals: {a} {rec[f'{a}_goals']} – {rec[f'{b}_goals']} {b}")
 
 
 def generic_filters(df: pd.DataFrame, key: str) -> pd.DataFrame:
@@ -304,7 +338,7 @@ def main():
     with tab_pred:
         if not empty(predictions):
             left, right = st.columns([3, 2])
-            df = team_filter(predictions, "pred", left)
+            df, _teams = team_filter(predictions, "pred", left)
             prov = find_col(predictions, PROVISIONAL_NAMES)
             if prov:
                 values = sorted(predictions[prov].dropna().astype(str).unique())
@@ -319,7 +353,9 @@ def main():
     with tab_res:
         if not empty(results):
             left, _ = st.columns([3, 2])
-            df = team_filter(results, "res", left)
+            df, teams = team_filter(results, "res", left)
+            if len(teams) == 2:
+                show_head_to_head(df, *teams)
             order = [c for c in ("date", "game_order") if c in df.columns]
             if order:
                 df = df.sort_values(order, ascending=False)
