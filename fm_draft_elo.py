@@ -36,11 +36,12 @@ Fairness for teams with different numbers of games / opponents
 --------------------------------------------------------------
 * Opponent strength is built in: beating a strong team is a bigger surprise
   than beating a weak one, so it earns more.
-* Provisional K-factor: a team's K starts at K_BASE * PROVISIONAL_MULTIPLIER
-  and slides down to K_BASE over its first PROVISIONAL_GAMES matches, so new
-  teams reach their true level quickly.
-* Reliability damping: when you play a provisional (barely-known) team, your
-  own rating moves less, because their rating is not yet trustworthy.
+* Same K for every team and every match (as in World Football Elo). New teams
+  get no faster rating changes, and playing a new team has no special effect.
+* Provisional label: teams with fewer than PROVISIONAL_GAMES matches are
+  flagged as provisional in the outputs. The flag never changes the maths.
+* Zero-sum: in every match, one team gains exactly what the other loses, so
+  the average rating across all teams stays at START_RATING.
 
 Usage
 -----
@@ -81,14 +82,12 @@ import pandas as pd
 RESULTS_URL = ("https://docs.google.com/spreadsheets/d/"
                "1fiPOeL43SXmzuryRHTDn2l9Qw8KXhIXiQ7cLvQbwNpQ/edit?usp=sharing")
 START_RATING = 1500          # every new team starts here
-K_BASE = 30                  # K for an established team
-PROVISIONAL_MULTIPLIER = 2.0 # new teams' K is this many times K_BASE...
-PROVISIONAL_GAMES = 15       # ...falling to K_BASE over this many games
+K = 30                       # max points one match can move a rating (same for all teams)
+PROVISIONAL_GAMES = 15       # teams with fewer games are labelled provisional (label only)
 RESULT_WEIGHT = 0.6          # share of the change driven by W/D/L
 SCORE_WEIGHT = 0.4           # share driven by goal difference vs expectation
 POINTS_PER_GOAL = 200        # rating gap that predicts a 1-goal margin
 MARGIN_SOFTNESS = 2.0        # larger = goal surprises saturate more slowly
-MIN_RELIABILITY_DAMPING = 0.5  # your K vs a brand-new opponent is scaled to this
 TOSS_UP_MARGIN = 0.05        # predictions within 45-55% are "Too close to call"
 
 COLUMN_ALIASES = {
@@ -114,19 +113,8 @@ def expected_goal_diff(r_team: float, r_opp: float) -> float:
     return (r_team - r_opp) / POINTS_PER_GOAL
 
 
-def reliability(games: int) -> float:
-    """0 for a brand-new team, 1 once it has played PROVISIONAL_GAMES."""
-    return min(1.0, games / PROVISIONAL_GAMES)
-
-
-def k_factor(games: int, opp_games: int) -> float:
-    k = K_BASE * (1 + (PROVISIONAL_MULTIPLIER - 1) * (1 - reliability(games)))
-    damping = MIN_RELIABILITY_DAMPING + (1 - MIN_RELIABILITY_DAMPING) * reliability(opp_games)
-    return k * damping
-
-
-def rating_change(r_team, r_opp, goals_for, goals_against, games, opp_games):
-    """Return (change, details) for one team in one match."""
+def rating_change(r_team, r_opp, goals_for, goals_against):
+    """Return (change, details) for r_team. The opponent's change is exactly -change."""
     gd = goals_for - goals_against
     actual = 1.0 if gd > 0 else 0.5 if gd == 0 else 0.0
     exp_res = expected_result(r_team, r_opp)
@@ -134,9 +122,8 @@ def rating_change(r_team, r_opp, goals_for, goals_against, games, opp_games):
 
     result_surprise = actual - exp_res
     score_surprise = math.tanh((gd - exp_gd) / MARGIN_SOFTNESS)
-    k = k_factor(games, opp_games)
-    change = k * (RESULT_WEIGHT * result_surprise + SCORE_WEIGHT * score_surprise)
-    return change, {"expected_result": exp_res, "expected_gd": exp_gd, "k": k}
+    change = K * (RESULT_WEIGHT * result_surprise + SCORE_WEIGHT * score_surprise)
+    return change, {"expected_result": exp_res, "expected_gd": exp_gd}
 
 
 # ---------------------------------------------------------------------------
@@ -241,8 +228,8 @@ def run(df: pd.DataFrame):
         b = teams.setdefault(m.team2, new_team())
         ra, rb = a["rating"], b["rating"]
 
-        ch_a, da = rating_change(ra, rb, m.goals1, m.goals2, a["games"], b["games"])
-        ch_b, db = rating_change(rb, ra, m.goals2, m.goals1, b["games"], a["games"])
+        ch_a, da = rating_change(ra, rb, m.goals1, m.goals2)
+        ch_b = -ch_a  # zero-sum: whatever one team gains, the other loses
 
         date = getattr(m, "date", None)
         for t, gf, ga, ch in ((a, m.goals1, m.goals2, ch_a), (b, m.goals2, m.goals1, ch_b)):
