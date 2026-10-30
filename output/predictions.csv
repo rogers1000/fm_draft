@@ -1,121 +1,106 @@
 team1,team2,team1_rating,team2_rating,team1_win_expectancy,team2_win_expectancy,expected_gd_team1,favourite,either_provisional
 Prophet,Arthur Ray,1535.6,1531.1,0.506,0.494,0.02,Too close to call,True
-Prophet,Mango,1535.6,1520.5,0.522,0.478,0.08,Too close to call,True
+Prophet,Rogers,1535.6,1521.2,0.521,0.479,0.07,Too close to call,True
 Prophet,DoctorBenjy,1535.6,1520.0,0.522,0.478,0.08,Too close to call,True
 Prophet,Lollujo,1535.6,1518.1,0.525,0.475,0.09,Too close to call,True
-Prophet,Rogers,1535.6,1501.4,0.549,0.451,0.17,Too close to call,True
-Prophet,Rena,1535.6,1498.6,0.553,0.447,0.18,Prophet,True
+Prophet,Rena,1535.6,1499.6,0.552,0.448,0.18,Prophet,True
 Prophet,FM Guru,1535.6,1498.3,0.553,0.447,0.19,Prophet,True
 Prophet,Wonderkids,1535.6,1497.1,0.555,0.445,0.19,Prophet,True
 Prophet,BigRobbo,1535.6,1495.9,0.557,0.443,0.2,Prophet,True
-Prophet,Freddie,1535.6,1494.6,0.559,0.441,0.21,Prophet,True
+Prophet,Freddie,1535.6,1494.5,0.559,0.441,0.21,Prophet,True
 Prophet,SYC,1535.6,1489.5,0.566,0.434,0.23,Prophet,True
-Prophet,Kings Utd (Ian),1535.6,1485.0,0.572,0.428,0.25,Prophet,True
+Prophet,Kings Utd (Ian),1535.6,1484.6,0.573,0.427,0.25,Prophet,True
 Prophet,Zealand,1535.6,1479.9,0.579,0.421,0.28,Prophet,True
 Prophet,Rixon,1535.6,1467.4,0.597,0.403,0.34,Prophet,True
 Prophet,Clayts,1535.6,1467.1,0.597,0.403,0.34,Prophet,True
-Arthur Ray,Mango,1531.1,1520.5,0.515,0.485,0.05,Too close to call,True
+Arthur Ray,Rogers,1531.1,1521.2,0.514,0.486,0.05,Too close to call,True
 Arthur Ray,DoctorBenjy,1531.1,1520.0,0.516,0.484,0.06,Too close to call,True
 Arthur Ray,Lollujo,1531.1,1518.1,0.519,0.481,0.07,Too close to call,True
-Arthur Ray,Rogers,1531.1,1501.4,0.543,0.457,0.15,Too close to call,True
-Arthur Ray,Rena,1531.1,1498.6,0.547,0.453,0.16,Too close to call,True
+Arthur Ray,Rena,1531.1,1499.6,0.545,0.455,0.16,Too close to call,True
 Arthur Ray,FM Guru,1531.1,1498.3,0.547,0.453,0.16,Too close to call,True
 Arthur Ray,Wonderkids,1531.1,1497.1,0.549,0.451,0.17,Too close to call,True
 Arthur Ray,BigRobbo,1531.1,1495.9,0.55,0.45,0.18,Arthur Ray,True
-Arthur Ray,Freddie,1531.1,1494.6,0.552,0.448,0.18,Arthur Ray,True
+Arthur Ray,Freddie,1531.1,1494.5,0.552,0.448,0.18,Arthur Ray,True
 Arthur Ray,SYC,1531.1,1489.5,0.56,0.44,0.21,Arthur Ray,True
-Arthur Ray,Kings Utd (Ian),1531.1,1485.0,0.566,0.434,0.23,Arthur Ray,True
+Arthur Ray,Kings Utd (Ian),1531.1,1484.6,0.567,0.433,0.23,Arthur Ray,True
 Arthur Ray,Zealand,1531.1,1479.9,0.573,0.427,0.26,Arthur Ray,True
 Arthur Ray,Rixon,1531.1,1467.4,0.591,0.409,0.32,Arthur Ray,True
 Arthur Ray,Clayts,1531.1,1467.1,0.591,0.409,0.32,Arthur Ray,True
-Mango,DoctorBenjy,1520.5,1520.0,0.501,0.499,0.0,Too close to call,True
-Mango,Lollujo,1520.5,1518.1,0.503,0.497,0.01,Too close to call,True
-Mango,Rogers,1520.5,1501.4,0.527,0.473,0.1,Too close to call,True
-Mango,Rena,1520.5,1498.6,0.531,0.469,0.11,Too close to call,True
-Mango,FM Guru,1520.5,1498.3,0.532,0.468,0.11,Too close to call,True
-Mango,Wonderkids,1520.5,1497.1,0.534,0.466,0.12,Too close to call,True
-Mango,BigRobbo,1520.5,1495.9,0.535,0.465,0.12,Too close to call,True
-Mango,Freddie,1520.5,1494.6,0.537,0.463,0.13,Too close to call,True
-Mango,SYC,1520.5,1489.5,0.544,0.456,0.15,Too close to call,True
-Mango,Kings Utd (Ian),1520.5,1485.0,0.551,0.449,0.18,Mango,True
-Mango,Zealand,1520.5,1479.9,0.558,0.442,0.2,Mango,True
-Mango,Rixon,1520.5,1467.4,0.576,0.424,0.27,Mango,True
-Mango,Clayts,1520.5,1467.1,0.576,0.424,0.27,Mango,True
+Rogers,DoctorBenjy,1521.2,1520.0,0.502,0.498,0.01,Too close to call,True
+Rogers,Lollujo,1521.2,1518.1,0.505,0.495,0.02,Too close to call,True
+Rogers,Rena,1521.2,1499.6,0.531,0.469,0.11,Too close to call,True
+Rogers,FM Guru,1521.2,1498.3,0.533,0.467,0.11,Too close to call,True
+Rogers,Wonderkids,1521.2,1497.1,0.535,0.465,0.12,Too close to call,True
+Rogers,BigRobbo,1521.2,1495.9,0.536,0.464,0.13,Too close to call,True
+Rogers,Freddie,1521.2,1494.5,0.538,0.462,0.13,Too close to call,True
+Rogers,SYC,1521.2,1489.5,0.545,0.455,0.16,Too close to call,True
+Rogers,Kings Utd (Ian),1521.2,1484.6,0.553,0.447,0.18,Rogers,True
+Rogers,Zealand,1521.2,1479.9,0.559,0.441,0.21,Rogers,True
+Rogers,Rixon,1521.2,1467.4,0.577,0.423,0.27,Rogers,True
+Rogers,Clayts,1521.2,1467.1,0.577,0.423,0.27,Rogers,True
 DoctorBenjy,Lollujo,1520.0,1518.1,0.503,0.497,0.01,Too close to call,True
-DoctorBenjy,Rogers,1520.0,1501.4,0.527,0.473,0.09,Too close to call,True
-DoctorBenjy,Rena,1520.0,1498.6,0.531,0.469,0.11,Too close to call,True
+DoctorBenjy,Rena,1520.0,1499.6,0.529,0.471,0.1,Too close to call,True
 DoctorBenjy,FM Guru,1520.0,1498.3,0.531,0.469,0.11,Too close to call,True
 DoctorBenjy,Wonderkids,1520.0,1497.1,0.533,0.467,0.11,Too close to call,True
 DoctorBenjy,BigRobbo,1520.0,1495.9,0.535,0.465,0.12,Too close to call,True
-DoctorBenjy,Freddie,1520.0,1494.6,0.537,0.463,0.13,Too close to call,True
+DoctorBenjy,Freddie,1520.0,1494.5,0.537,0.463,0.13,Too close to call,True
 DoctorBenjy,SYC,1520.0,1489.5,0.544,0.456,0.15,Too close to call,True
-DoctorBenjy,Kings Utd (Ian),1520.0,1485.0,0.55,0.45,0.18,DoctorBenjy,True
+DoctorBenjy,Kings Utd (Ian),1520.0,1484.6,0.551,0.449,0.18,DoctorBenjy,True
 DoctorBenjy,Zealand,1520.0,1479.9,0.558,0.442,0.2,DoctorBenjy,True
 DoctorBenjy,Rixon,1520.0,1467.4,0.575,0.425,0.26,DoctorBenjy,True
 DoctorBenjy,Clayts,1520.0,1467.1,0.576,0.424,0.26,DoctorBenjy,True
-Lollujo,Rogers,1518.1,1501.4,0.524,0.476,0.08,Too close to call,True
-Lollujo,Rena,1518.1,1498.6,0.528,0.472,0.1,Too close to call,True
+Lollujo,Rena,1518.1,1499.6,0.527,0.473,0.09,Too close to call,True
 Lollujo,FM Guru,1518.1,1498.3,0.528,0.472,0.1,Too close to call,True
 Lollujo,Wonderkids,1518.1,1497.1,0.53,0.47,0.1,Too close to call,True
 Lollujo,BigRobbo,1518.1,1495.9,0.532,0.468,0.11,Too close to call,True
-Lollujo,Freddie,1518.1,1494.6,0.534,0.466,0.12,Too close to call,True
+Lollujo,Freddie,1518.1,1494.5,0.534,0.466,0.12,Too close to call,True
 Lollujo,SYC,1518.1,1489.5,0.541,0.459,0.14,Too close to call,True
-Lollujo,Kings Utd (Ian),1518.1,1485.0,0.547,0.453,0.17,Too close to call,True
+Lollujo,Kings Utd (Ian),1518.1,1484.6,0.548,0.452,0.17,Too close to call,True
 Lollujo,Zealand,1518.1,1479.9,0.555,0.445,0.19,Lollujo,True
 Lollujo,Rixon,1518.1,1467.4,0.572,0.428,0.25,Lollujo,True
 Lollujo,Clayts,1518.1,1467.1,0.573,0.427,0.25,Lollujo,True
-Rogers,Rena,1501.4,1498.6,0.504,0.496,0.01,Too close to call,True
-Rogers,FM Guru,1501.4,1498.3,0.504,0.496,0.02,Too close to call,True
-Rogers,Wonderkids,1501.4,1497.1,0.506,0.494,0.02,Too close to call,True
-Rogers,BigRobbo,1501.4,1495.9,0.508,0.492,0.03,Too close to call,True
-Rogers,Freddie,1501.4,1494.6,0.51,0.49,0.03,Too close to call,True
-Rogers,SYC,1501.4,1489.5,0.517,0.483,0.06,Too close to call,True
-Rogers,Kings Utd (Ian),1501.4,1485.0,0.524,0.476,0.08,Too close to call,True
-Rogers,Zealand,1501.4,1479.9,0.531,0.469,0.11,Too close to call,True
-Rogers,Rixon,1501.4,1467.4,0.549,0.451,0.17,Too close to call,True
-Rogers,Clayts,1501.4,1467.1,0.549,0.451,0.17,Too close to call,True
-Rena,FM Guru,1498.6,1498.3,0.5,0.5,0.0,Too close to call,True
-Rena,Wonderkids,1498.6,1497.1,0.502,0.498,0.01,Too close to call,True
-Rena,BigRobbo,1498.6,1495.9,0.504,0.496,0.01,Too close to call,True
-Rena,Freddie,1498.6,1494.6,0.506,0.494,0.02,Too close to call,True
-Rena,SYC,1498.6,1489.5,0.513,0.487,0.05,Too close to call,True
-Rena,Kings Utd (Ian),1498.6,1485.0,0.52,0.48,0.07,Too close to call,True
-Rena,Zealand,1498.6,1479.9,0.527,0.473,0.09,Too close to call,True
-Rena,Rixon,1498.6,1467.4,0.545,0.455,0.16,Too close to call,True
-Rena,Clayts,1498.6,1467.1,0.545,0.455,0.16,Too close to call,True
+Rena,FM Guru,1499.6,1498.3,0.502,0.498,0.01,Too close to call,True
+Rena,Wonderkids,1499.6,1497.1,0.504,0.496,0.01,Too close to call,True
+Rena,BigRobbo,1499.6,1495.9,0.505,0.495,0.02,Too close to call,True
+Rena,Freddie,1499.6,1494.5,0.507,0.493,0.03,Too close to call,True
+Rena,SYC,1499.6,1489.5,0.514,0.486,0.05,Too close to call,True
+Rena,Kings Utd (Ian),1499.6,1484.6,0.522,0.478,0.07,Too close to call,True
+Rena,Zealand,1499.6,1479.9,0.528,0.472,0.1,Too close to call,True
+Rena,Rixon,1499.6,1467.4,0.546,0.454,0.16,Too close to call,True
+Rena,Clayts,1499.6,1467.1,0.547,0.453,0.16,Too close to call,True
 FM Guru,Wonderkids,1498.3,1497.1,0.502,0.498,0.01,Too close to call,True
 FM Guru,BigRobbo,1498.3,1495.9,0.503,0.497,0.01,Too close to call,True
-FM Guru,Freddie,1498.3,1494.6,0.505,0.495,0.02,Too close to call,True
+FM Guru,Freddie,1498.3,1494.5,0.505,0.495,0.02,Too close to call,True
 FM Guru,SYC,1498.3,1489.5,0.513,0.487,0.04,Too close to call,True
-FM Guru,Kings Utd (Ian),1498.3,1485.0,0.519,0.481,0.07,Too close to call,True
+FM Guru,Kings Utd (Ian),1498.3,1484.6,0.52,0.48,0.07,Too close to call,True
 FM Guru,Zealand,1498.3,1479.9,0.527,0.473,0.09,Too close to call,True
 FM Guru,Rixon,1498.3,1467.4,0.544,0.456,0.15,Too close to call,True
 FM Guru,Clayts,1498.3,1467.1,0.545,0.455,0.16,Too close to call,True
 Wonderkids,BigRobbo,1497.1,1495.9,0.502,0.498,0.01,Too close to call,True
-Wonderkids,Freddie,1497.1,1494.6,0.504,0.496,0.01,Too close to call,True
+Wonderkids,Freddie,1497.1,1494.5,0.504,0.496,0.01,Too close to call,True
 Wonderkids,SYC,1497.1,1489.5,0.511,0.489,0.04,Too close to call,True
-Wonderkids,Kings Utd (Ian),1497.1,1485.0,0.517,0.483,0.06,Too close to call,True
+Wonderkids,Kings Utd (Ian),1497.1,1484.6,0.518,0.482,0.06,Too close to call,True
 Wonderkids,Zealand,1497.1,1479.9,0.525,0.475,0.09,Too close to call,True
 Wonderkids,Rixon,1497.1,1467.4,0.543,0.457,0.15,Too close to call,True
 Wonderkids,Clayts,1497.1,1467.1,0.543,0.457,0.15,Too close to call,True
-BigRobbo,Freddie,1495.9,1494.6,0.502,0.498,0.01,Too close to call,True
+BigRobbo,Freddie,1495.9,1494.5,0.502,0.498,0.01,Too close to call,True
 BigRobbo,SYC,1495.9,1489.5,0.509,0.491,0.03,Too close to call,True
-BigRobbo,Kings Utd (Ian),1495.9,1485.0,0.516,0.484,0.05,Too close to call,True
+BigRobbo,Kings Utd (Ian),1495.9,1484.6,0.516,0.484,0.06,Too close to call,True
 BigRobbo,Zealand,1495.9,1479.9,0.523,0.477,0.08,Too close to call,True
 BigRobbo,Rixon,1495.9,1467.4,0.541,0.459,0.14,Too close to call,True
 BigRobbo,Clayts,1495.9,1467.1,0.541,0.459,0.14,Too close to call,True
-Freddie,SYC,1494.6,1489.5,0.507,0.493,0.03,Too close to call,True
-Freddie,Kings Utd (Ian),1494.6,1485.0,0.514,0.486,0.05,Too close to call,True
-Freddie,Zealand,1494.6,1479.9,0.521,0.479,0.07,Too close to call,True
-Freddie,Rixon,1494.6,1467.4,0.539,0.461,0.14,Too close to call,True
-Freddie,Clayts,1494.6,1467.1,0.539,0.461,0.14,Too close to call,True
-SYC,Kings Utd (Ian),1489.5,1485.0,0.507,0.493,0.02,Too close to call,True
+Freddie,SYC,1494.5,1489.5,0.507,0.493,0.03,Too close to call,True
+Freddie,Kings Utd (Ian),1494.5,1484.6,0.514,0.486,0.05,Too close to call,True
+Freddie,Zealand,1494.5,1479.9,0.521,0.479,0.07,Too close to call,True
+Freddie,Rixon,1494.5,1467.4,0.539,0.461,0.14,Too close to call,True
+Freddie,Clayts,1494.5,1467.1,0.539,0.461,0.14,Too close to call,True
+SYC,Kings Utd (Ian),1489.5,1484.6,0.507,0.493,0.02,Too close to call,True
 SYC,Zealand,1489.5,1479.9,0.514,0.486,0.05,Too close to call,True
 SYC,Rixon,1489.5,1467.4,0.532,0.468,0.11,Too close to call,True
 SYC,Clayts,1489.5,1467.1,0.532,0.468,0.11,Too close to call,True
-Kings Utd (Ian),Zealand,1485.0,1479.9,0.507,0.493,0.03,Too close to call,True
-Kings Utd (Ian),Rixon,1485.0,1467.4,0.525,0.475,0.09,Too close to call,True
-Kings Utd (Ian),Clayts,1485.0,1467.1,0.526,0.474,0.09,Too close to call,True
+Kings Utd (Ian),Zealand,1484.6,1479.9,0.507,0.493,0.02,Too close to call,True
+Kings Utd (Ian),Rixon,1484.6,1467.4,0.525,0.475,0.09,Too close to call,True
+Kings Utd (Ian),Clayts,1484.6,1467.1,0.525,0.475,0.09,Too close to call,True
 Zealand,Rixon,1479.9,1467.4,0.518,0.482,0.06,Too close to call,True
 Zealand,Clayts,1479.9,1467.1,0.518,0.482,0.06,Too close to call,True
 Rixon,Clayts,1467.4,1467.1,0.5,0.5,0.0,Too close to call,True
