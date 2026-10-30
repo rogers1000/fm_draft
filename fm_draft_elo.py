@@ -36,7 +36,9 @@ Fairness for teams with different numbers of games / opponents
 --------------------------------------------------------------
 * Opponent strength is built in: beating a strong team is a bigger surprise
   than beating a weak one, so it earns more.
-* Same K for every team and every match (as in World Football Elo). New teams
+* Match weight: K depends on the match's competition (COMPETITION_K), so a
+  Streamer Showdown game moves ratings twice as much as a standard game.
+* Same K for both teams and for every team (as in World Football Elo). New teams
   get no faster rating changes, and playing a new team has no special effect.
 * Provisional label: teams with fewer than PROVISIONAL_GAMES matches are
   flagged as provisional in the outputs. The flag never changes the maths.
@@ -51,9 +53,11 @@ Usage
 
 CSV format (header names are case-insensitive)
 ----------------------------------------------
-    date,game_order,team1,team2,goals1,goals2
-    2026-08-01,1,Leeds,York,2,1
-    2026-08-01,2,Leeds,Hull,0,0
+    date,game_order,team1,team2,goals1,goals2,competition
+    2026-08-01,1,Leeds,York,2,1,Streamer Showdown
+    2026-08-01,2,Leeds,Hull,0,0,Fun
+
+competition is optional; without it (or when blank) every game uses K.
 
 Accepted aliases: team1/home/home_team, team2/away/away_team,
 goals1/score1/home_goals, goals2/score2/away_goals,
@@ -82,7 +86,15 @@ import pandas as pd
 RESULTS_URL = ("https://docs.google.com/spreadsheets/d/"
                "1fiPOeL43SXmzuryRHTDn2l9Qw8KXhIXiQ7cLvQbwNpQ/edit?usp=sharing")
 START_RATING = 1500          # every new team starts here
-K = 30                       # max points one match can move a rating (same for all teams)
+K = 30                       # match weight for any competition not listed below
+
+# Match weight by competition (World Football Elo style: big tournaments count
+# more). Matched against the sheet's "competition" column, ignoring capitals and
+# spaces; a name only has to contain the key, so "Streamer Showdown 2" matches
+# "streamer showdown". Blank or unlisted competitions use K above.
+COMPETITION_K = {
+    "streamer showdown": 60,
+}
 PROVISIONAL_GAMES = 15       # teams with fewer games are labelled provisional (label only)
 RESULT_WEIGHT = 0.6          # share of the change driven by W/D/L
 SCORE_WEIGHT = 0.4           # share driven by goal difference vs expectation
@@ -98,7 +110,20 @@ COLUMN_ALIASES = {
     "team2": ["team2", "team_2", "away", "away_team", "team_b"],
     "goals1": ["goals1", "score1", "home_goals", "home_score", "goals_a"],
     "goals2": ["goals2", "score2", "away_goals", "away_score", "goals_b"],
+    "competition": ["competition", "comp", "event", "tournament", "match_type", "type"],
 }
+OPTIONAL_COLUMNS = ("date", "game_order", "competition")
+
+
+def match_k(competition) -> float:
+    """Match weight for a competition name (blank -> K)."""
+    if competition is None or pd.isna(competition):
+        return K
+    name = " ".join(str(competition).lower().split())
+    for key, k in COMPETITION_K.items():
+        if " ".join(key.lower().split()) in name:
+            return k
+    return K
 
 
 # ---------------------------------------------------------------------------
@@ -113,8 +138,9 @@ def expected_goal_diff(r_team: float, r_opp: float) -> float:
     return (r_team - r_opp) / POINTS_PER_GOAL
 
 
-def rating_change(r_team, r_opp, goals_for, goals_against):
+def rating_change(r_team, r_opp, goals_for, goals_against, k=None):
     """Return (change, details) for r_team. The opponent's change is exactly -change."""
+    k = K if k is None else k
     gd = goals_for - goals_against
     actual = 1.0 if gd > 0 else 0.5 if gd == 0 else 0.0
     exp_res = expected_result(r_team, r_opp)
@@ -122,7 +148,7 @@ def rating_change(r_team, r_opp, goals_for, goals_against):
 
     result_surprise = actual - exp_res
     score_surprise = math.tanh((gd - exp_gd) / MARGIN_SOFTNESS)
-    change = K * (RESULT_WEIGHT * result_surprise + SCORE_WEIGHT * score_surprise)
+    change = k * (RESULT_WEIGHT * result_surprise + SCORE_WEIGHT * score_surprise)
     return change, {"expected_result": exp_res, "expected_gd": exp_gd}
 
 
@@ -162,7 +188,7 @@ def load_results(source: str, dayfirst: bool) -> pd.DataFrame:
     for canon, aliases in COLUMN_ALIASES.items():
         found = next((lower[a] for a in aliases if a in lower), None)
         if found is None:
-            if canon in ("date", "game_order"):
+            if canon in OPTIONAL_COLUMNS:
                 continue  # optional; fall back to row order
             sys.exit(f"Missing column for '{canon}'. Expected one of: {aliases}")
         rename[found] = canon
@@ -209,6 +235,18 @@ def load_results(source: str, dayfirst: bool) -> pd.DataFrame:
     sort_cols.append("csv_row")
     df = df.sort_values(sort_cols, kind="stable", na_position="last")
     df[["goals1", "goals2"]] = df[["goals1", "goals2"]].astype(int)
+
+    if "competition" not in df.columns:
+        df["competition"] = None
+    df["competition"] = df["competition"].map(
+        lambda c: None if pd.isna(c) or not str(c).strip() else " ".join(str(c).split())
+    ).astype(object)
+    df["match_weight"] = df["competition"].map(match_k)
+    summary = (df.assign(competition=df["competition"].fillna("(blank)"))
+                 .groupby("competition", sort=False)["match_weight"].agg(["first", "size"]))
+    for comp, row in summary.iterrows():
+        print(f"Competition '{comp}': {row['size']} game(s) at weight {row['first']:g}",
+              file=sys.stderr)
     return df.reset_index(drop=True)
 
 
@@ -228,7 +266,7 @@ def run(df: pd.DataFrame):
         b = teams.setdefault(m.team2, new_team())
         ra, rb = a["rating"], b["rating"]
 
-        ch_a, da = rating_change(ra, rb, m.goals1, m.goals2)
+        ch_a, da = rating_change(ra, rb, m.goals1, m.goals2, m.match_weight)
         ch_b = -ch_a  # zero-sum: whatever one team gains, the other loses
 
         date = getattr(m, "date", None)
@@ -245,6 +283,7 @@ def run(df: pd.DataFrame):
             "date": date.date() if date is not None else None,
             "game_order": (int(m.game_order) if hasattr(m, "game_order")
                            and pd.notna(m.game_order) else None),
+            "competition": m.competition, "match_weight": m.match_weight,
             "team1": m.team1, "team2": m.team2,
             "goals1": m.goals1, "goals2": m.goals2,
             "team1_before": round(ra, 1), "team2_before": round(rb, 1),
@@ -253,7 +292,8 @@ def run(df: pd.DataFrame):
             "team1_change": round(ch_a, 1), "team2_change": round(ch_b, 1),
             "team1_after": round(a["rating"], 1), "team2_after": round(b["rating"], 1),
         })
-    columns = ["date", "game_order", "team1", "team2", "goals1", "goals2",
+    columns = ["date", "game_order", "competition", "match_weight",
+               "team1", "team2", "goals1", "goals2",
                "team1_before", "team2_before", "team1_win_expectancy",
                "expected_gd_team1", "team1_change", "team2_change",
                "team1_after", "team2_after"]
