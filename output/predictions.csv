@@ -1,20 +1,20 @@
 team1,team2,team1_rating,team2_rating,team1_win_expectancy,team2_win_expectancy,expected_gd_team1,favourite,either_provisional
-Rogers,Arthur Ray,1540.4,1531.1,0.513,0.487,0.05,Too close to call,True
-Rogers,DoctorBenjy,1540.4,1520.0,0.529,0.471,0.1,Too close to call,True
-Rogers,Rena,1540.4,1518.9,0.531,0.469,0.11,Too close to call,True
-Rogers,Lollujo,1540.4,1518.1,0.532,0.468,0.11,Too close to call,True
-Rogers,Wonderkids,1540.4,1512.2,0.541,0.459,0.14,Too close to call,True
-Rogers,FM Guru,1540.4,1498.3,0.56,0.44,0.21,Rogers,True
-Rogers,BigRobbo,1540.4,1495.9,0.564,0.436,0.22,Rogers,True
-Rogers,Freddie,1540.4,1494.5,0.566,0.434,0.23,Rogers,True
-Rogers,SYC,1540.4,1489.5,0.573,0.427,0.25,Rogers,True
-Rogers,Kings Utd (Ian),1540.4,1484.6,0.58,0.42,0.28,Rogers,True
-Rogers,Prophet,1540.4,1480.1,0.586,0.414,0.3,Rogers,True
-Rogers,Zealand,1540.4,1479.9,0.586,0.414,0.3,Rogers,True
-Rogers,Rixon,1540.4,1469.2,0.601,0.399,0.36,Rogers,True
-Rogers,Clayts,1540.4,1467.1,0.604,0.396,0.37,Rogers,True
+Rena,Arthur Ray,1537.9,1531.1,0.51,0.49,0.03,Too close to call,True
+Rena,Rogers,1537.9,1521.5,0.524,0.476,0.08,Too close to call,True
+Rena,DoctorBenjy,1537.9,1520.0,0.526,0.474,0.09,Too close to call,True
+Rena,Lollujo,1537.9,1518.1,0.528,0.472,0.1,Too close to call,True
+Rena,Wonderkids,1537.9,1512.2,0.537,0.463,0.13,Too close to call,True
+Rena,FM Guru,1537.9,1498.3,0.557,0.443,0.2,Rena,True
+Rena,BigRobbo,1537.9,1495.9,0.56,0.44,0.21,Rena,True
+Rena,Freddie,1537.9,1494.5,0.562,0.438,0.22,Rena,True
+Rena,SYC,1537.9,1489.5,0.569,0.431,0.24,Rena,True
+Rena,Kings Utd (Ian),1537.9,1484.6,0.576,0.424,0.27,Rena,True
+Rena,Prophet,1537.9,1480.1,0.582,0.418,0.29,Rena,True
+Rena,Zealand,1537.9,1479.9,0.583,0.417,0.29,Rena,True
+Rena,Rixon,1537.9,1469.2,0.598,0.402,0.34,Rena,True
+Rena,Clayts,1537.9,1467.1,0.6,0.4,0.35,Rena,True
+Arthur Ray,Rogers,1531.1,1521.5,0.514,0.486,0.05,Too close to call,True
 Arthur Ray,DoctorBenjy,1531.1,1520.0,0.516,0.484,0.06,Too close to call,True
-Arthur Ray,Rena,1531.1,1518.9,0.518,0.482,0.06,Too close to call,True
 Arthur Ray,Lollujo,1531.1,1518.1,0.519,0.481,0.07,Too close to call,True
 Arthur Ray,Wonderkids,1531.1,1512.2,0.527,0.473,0.09,Too close to call,True
 Arthur Ray,FM Guru,1531.1,1498.3,0.547,0.453,0.16,Too close to call,True
@@ -26,7 +26,18 @@ Arthur Ray,Prophet,1531.1,1480.1,0.573,0.427,0.25,Arthur Ray,True
 Arthur Ray,Zealand,1531.1,1479.9,0.573,0.427,0.26,Arthur Ray,True
 Arthur Ray,Rixon,1531.1,1469.2,0.588,0.412,0.31,Arthur Ray,True
 Arthur Ray,Clayts,1531.1,1467.1,0.591,0.409,0.32,Arthur Ray,True
-DoctorBenjy,Rena,1520.0,1518.9,0.502,0.498,0.01,Too close to call,True
+Rogers,DoctorBenjy,1521.5,1520.0,0.502,0.498,0.01,Too close to call,True
+Rogers,Lollujo,1521.5,1518.1,0.505,0.495,0.02,Too close to call,True
+Rogers,Wonderkids,1521.5,1512.2,0.513,0.487,0.05,Too close to call,True
+Rogers,FM Guru,1521.5,1498.3,0.533,0.467,0.12,Too close to call,True
+Rogers,BigRobbo,1521.5,1495.9,0.537,0.463,0.13,Too close to call,True
+Rogers,Freddie,1521.5,1494.5,0.539,0.461,0.13,Too close to call,True
+Rogers,SYC,1521.5,1489.5,0.546,0.454,0.16,Too close to call,True
+Rogers,Kings Utd (Ian),1521.5,1484.6,0.553,0.447,0.18,Rogers,True
+Rogers,Prophet,1521.5,1480.1,0.559,0.441,0.21,Rogers,True
+Rogers,Zealand,1521.5,1479.9,0.56,0.44,0.21,Rogers,True
+Rogers,Rixon,1521.5,1469.2,0.575,0.425,0.26,Rogers,True
+Rogers,Clayts,1521.5,1467.1,0.578,0.422,0.27,Rogers,True
 DoctorBenjy,Lollujo,1520.0,1518.1,0.503,0.497,0.01,Too close to call,True
 DoctorBenjy,Wonderkids,1520.0,1512.2,0.511,0.489,0.04,Too close to call,True
 DoctorBenjy,FM Guru,1520.0,1498.3,0.531,0.469,0.11,Too close to call,True
@@ -38,17 +49,6 @@ DoctorBenjy,Prophet,1520.0,1480.1,0.557,0.443,0.2,DoctorBenjy,True
 DoctorBenjy,Zealand,1520.0,1479.9,0.558,0.442,0.2,DoctorBenjy,True
 DoctorBenjy,Rixon,1520.0,1469.2,0.573,0.427,0.25,DoctorBenjy,True
 DoctorBenjy,Clayts,1520.0,1467.1,0.576,0.424,0.26,DoctorBenjy,True
-Rena,Lollujo,1518.9,1518.1,0.501,0.499,0.0,Too close to call,True
-Rena,Wonderkids,1518.9,1512.2,0.51,0.49,0.03,Too close to call,True
-Rena,FM Guru,1518.9,1498.3,0.53,0.47,0.1,Too close to call,True
-Rena,BigRobbo,1518.9,1495.9,0.533,0.467,0.12,Too close to call,True
-Rena,Freddie,1518.9,1494.5,0.535,0.465,0.12,Too close to call,True
-Rena,SYC,1518.9,1489.5,0.542,0.458,0.15,Too close to call,True
-Rena,Kings Utd (Ian),1518.9,1484.6,0.549,0.451,0.17,Too close to call,True
-Rena,Prophet,1518.9,1480.1,0.556,0.444,0.19,Rena,True
-Rena,Zealand,1518.9,1479.9,0.556,0.444,0.2,Rena,True
-Rena,Rixon,1518.9,1469.2,0.571,0.429,0.25,Rena,True
-Rena,Clayts,1518.9,1467.1,0.574,0.426,0.26,Rena,True
 Lollujo,Wonderkids,1518.1,1512.2,0.508,0.492,0.03,Too close to call,True
 Lollujo,FM Guru,1518.1,1498.3,0.528,0.472,0.1,Too close to call,True
 Lollujo,BigRobbo,1518.1,1495.9,0.532,0.468,0.11,Too close to call,True
