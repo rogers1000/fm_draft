@@ -69,6 +69,7 @@ LABELS = {
     # Draft game results
     "date": ("Date", None),
     "game_order": ("Game Order", "Order of games played on the same day"),
+    "competition": ("Competition", None),
     "goals1": ("Team 1 Score", None),
     "goals2": ("Team 2 Score", None),
     "team1_before": ("Team 1 Pre-Game Elo", "Team 1's rating going into this game"),
@@ -79,8 +80,10 @@ LABELS = {
                            "was playing its first game, and 'Draw - 50.0%' when the ratings "
                            "were level."),
 }
-RESULTS_COLUMN_ORDER = ["date", "game_order", "team1", "team1_before", "goals1",
+RESULTS_COLUMN_ORDER = ["date", "game_order", "competition", "team1", "team1_before", "goals1",
                         "goals2", "team2_before", "team2", "pregame_prediction"]
+# Internal working columns from fm_draft_elo.py that the Results tab doesn't show.
+RESULTS_HIDDEN = ["csv_row", "match_weight"]
 PCT_COLS = {"team1_win_expectancy", "team2_win_expectancy"}
 
 
@@ -186,7 +189,10 @@ def compute(raw: pd.DataFrame):
         describe_gd(gd, t1, t2)
         for gd, t1, t2 in zip(predictions["expected_gd_team1"], predictions["team1"], predictions["team2"])
     ]
-    results = raw.drop(columns=["csv_row"], errors="ignore").reset_index(drop=True)
+    results = raw.drop(columns=RESULTS_HIDDEN, errors="ignore").reset_index(drop=True)
+    if "competition" not in results.columns:  # older fm_draft_elo.py without competitions
+        results["competition"] = None
+    results["competition"] = results["competition"].fillna("").astype(str)  # blank, not "None"
     # elo.run processes games in the same order as raw, so history lines up row for row.
     results["team1_before"] = history["team1_before"].to_numpy()
     results["team2_before"] = history["team2_before"].to_numpy()
