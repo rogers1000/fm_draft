@@ -1,9 +1,30 @@
 team1,team2,team1_rating,team2_rating,team1_win_expectancy,team2_win_expectancy,expected_gd_team1,favourite,either_provisional
-Ian (Jangs),Arthur Ray,1561.4,1553.6,0.511,0.489,0.04,Too close to call,True
+DoctorBenjy,Ian (Jangs),1585.4,1561.4,0.534,0.466,0.12,Too close to call,True
+DoctorBenjy,Arthur Ray,1585.4,1560.0,0.536,0.464,0.13,Too close to call,True
+DoctorBenjy,Tomxrv,1585.4,1544.9,0.558,0.442,0.2,DoctorBenjy,True
+DoctorBenjy,Rena,1585.4,1534.8,0.572,0.428,0.25,DoctorBenjy,True
+DoctorBenjy,BillyCCFC,1585.4,1533.5,0.574,0.426,0.26,DoctorBenjy,True
+DoctorBenjy,Jamesrfc1,1585.4,1511.5,0.605,0.395,0.37,DoctorBenjy,True
+DoctorBenjy,Wonderkids,1585.4,1509.2,0.608,0.392,0.38,DoctorBenjy,True
+DoctorBenjy,FM Guru,1585.4,1508.9,0.608,0.392,0.38,DoctorBenjy,True
+DoctorBenjy,Mulac,1585.4,1500.2,0.62,0.38,0.43,DoctorBenjy,True
+DoctorBenjy,oldmansudor,1585.4,1495.1,0.627,0.373,0.45,DoctorBenjy,True
+DoctorBenjy,Rogers,1585.4,1494.9,0.627,0.373,0.45,DoctorBenjy,True
+DoctorBenjy,BigRobbo,1585.4,1494.2,0.628,0.372,0.46,DoctorBenjy,True
+DoctorBenjy,Zac Harris,1585.4,1488.8,0.636,0.364,0.48,DoctorBenjy,True
+DoctorBenjy,HonestlyBenji,1585.4,1485.2,0.64,0.36,0.5,DoctorBenjy,True
+DoctorBenjy,Freddie,1585.4,1480.8,0.646,0.354,0.52,DoctorBenjy,True
+DoctorBenjy,Prophet,1585.4,1480.1,0.647,0.353,0.53,DoctorBenjy,True
+DoctorBenjy,Lollujo,1585.4,1477.9,0.65,0.35,0.54,DoctorBenjy,True
+DoctorBenjy,SYC,1585.4,1476.7,0.651,0.349,0.54,DoctorBenjy,True
+DoctorBenjy,Bennythfc27,1585.4,1472.6,0.657,0.343,0.56,DoctorBenjy,True
+DoctorBenjy,CookieFM,1585.4,1465.4,0.666,0.334,0.6,DoctorBenjy,True
+DoctorBenjy,Zealand,1585.4,1462.9,0.669,0.331,0.61,DoctorBenjy,True
+DoctorBenjy,Rixon,1585.4,1441.7,0.696,0.304,0.72,DoctorBenjy,True
+DoctorBenjy,Clayts,1585.4,1434.0,0.705,0.295,0.76,DoctorBenjy,True
+Ian (Jangs),Arthur Ray,1561.4,1560.0,0.502,0.498,0.01,Too close to call,True
 Ian (Jangs),Tomxrv,1561.4,1544.9,0.524,0.476,0.08,Too close to call,True
-Ian (Jangs),Lollujo,1561.4,1535.6,0.537,0.463,0.13,Too close to call,True
 Ian (Jangs),Rena,1561.4,1534.8,0.538,0.462,0.13,Too close to call,True
-Ian (Jangs),DoctorBenjy,1561.4,1534.1,0.539,0.461,0.14,Too close to call,True
 Ian (Jangs),BillyCCFC,1561.4,1533.5,0.54,0.46,0.14,Too close to call,True
 Ian (Jangs),Jamesrfc1,1561.4,1511.5,0.571,0.429,0.25,Ian (Jangs),True
 Ian (Jangs),Wonderkids,1561.4,1509.2,0.575,0.425,0.26,Ian (Jangs),True
@@ -16,37 +37,35 @@ Ian (Jangs),Zac Harris,1561.4,1488.8,0.603,0.397,0.36,Ian (Jangs),True
 Ian (Jangs),HonestlyBenji,1561.4,1485.2,0.608,0.392,0.38,Ian (Jangs),True
 Ian (Jangs),Freddie,1561.4,1480.8,0.614,0.386,0.4,Ian (Jangs),True
 Ian (Jangs),Prophet,1561.4,1480.1,0.615,0.385,0.41,Ian (Jangs),True
+Ian (Jangs),Lollujo,1561.4,1477.9,0.618,0.382,0.42,Ian (Jangs),True
 Ian (Jangs),SYC,1561.4,1476.7,0.62,0.38,0.42,Ian (Jangs),True
 Ian (Jangs),Bennythfc27,1561.4,1472.6,0.625,0.375,0.44,Ian (Jangs),True
 Ian (Jangs),CookieFM,1561.4,1465.4,0.635,0.365,0.48,Ian (Jangs),True
 Ian (Jangs),Zealand,1561.4,1462.9,0.638,0.362,0.49,Ian (Jangs),True
 Ian (Jangs),Rixon,1561.4,1441.7,0.666,0.334,0.6,Ian (Jangs),True
 Ian (Jangs),Clayts,1561.4,1434.0,0.676,0.324,0.64,Ian (Jangs),True
-Arthur Ray,Tomxrv,1553.6,1544.9,0.512,0.488,0.04,Too close to call,True
-Arthur Ray,Lollujo,1553.6,1535.6,0.526,0.474,0.09,Too close to call,True
-Arthur Ray,Rena,1553.6,1534.8,0.527,0.473,0.09,Too close to call,True
-Arthur Ray,DoctorBenjy,1553.6,1534.1,0.528,0.472,0.1,Too close to call,True
-Arthur Ray,BillyCCFC,1553.6,1533.5,0.529,0.471,0.1,Too close to call,True
-Arthur Ray,Jamesrfc1,1553.6,1511.5,0.56,0.44,0.21,Arthur Ray,True
-Arthur Ray,Wonderkids,1553.6,1509.2,0.564,0.436,0.22,Arthur Ray,True
-Arthur Ray,FM Guru,1553.6,1508.9,0.564,0.436,0.22,Arthur Ray,True
-Arthur Ray,Mulac,1553.6,1500.2,0.576,0.424,0.27,Arthur Ray,True
-Arthur Ray,oldmansudor,1553.6,1495.1,0.583,0.417,0.29,Arthur Ray,True
-Arthur Ray,Rogers,1553.6,1494.9,0.584,0.416,0.29,Arthur Ray,True
-Arthur Ray,BigRobbo,1553.6,1494.2,0.585,0.415,0.3,Arthur Ray,True
-Arthur Ray,Zac Harris,1553.6,1488.8,0.592,0.408,0.32,Arthur Ray,True
-Arthur Ray,HonestlyBenji,1553.6,1485.2,0.597,0.403,0.34,Arthur Ray,True
-Arthur Ray,Freddie,1553.6,1480.8,0.603,0.397,0.36,Arthur Ray,True
-Arthur Ray,Prophet,1553.6,1480.1,0.604,0.396,0.37,Arthur Ray,True
-Arthur Ray,SYC,1553.6,1476.7,0.609,0.391,0.38,Arthur Ray,True
-Arthur Ray,Bennythfc27,1553.6,1472.6,0.615,0.385,0.41,Arthur Ray,True
-Arthur Ray,CookieFM,1553.6,1465.4,0.624,0.376,0.44,Arthur Ray,True
-Arthur Ray,Zealand,1553.6,1462.9,0.628,0.372,0.45,Arthur Ray,True
-Arthur Ray,Rixon,1553.6,1441.7,0.656,0.344,0.56,Arthur Ray,True
-Arthur Ray,Clayts,1553.6,1434.0,0.666,0.334,0.6,Arthur Ray,True
-Tomxrv,Lollujo,1544.9,1535.6,0.513,0.487,0.05,Too close to call,True
+Arthur Ray,Tomxrv,1560.0,1544.9,0.522,0.478,0.08,Too close to call,True
+Arthur Ray,Rena,1560.0,1534.8,0.536,0.464,0.13,Too close to call,True
+Arthur Ray,BillyCCFC,1560.0,1533.5,0.538,0.462,0.13,Too close to call,True
+Arthur Ray,Jamesrfc1,1560.0,1511.5,0.569,0.431,0.24,Arthur Ray,True
+Arthur Ray,Wonderkids,1560.0,1509.2,0.573,0.427,0.25,Arthur Ray,True
+Arthur Ray,FM Guru,1560.0,1508.9,0.573,0.427,0.26,Arthur Ray,True
+Arthur Ray,Mulac,1560.0,1500.2,0.585,0.415,0.3,Arthur Ray,True
+Arthur Ray,oldmansudor,1560.0,1495.1,0.592,0.408,0.32,Arthur Ray,True
+Arthur Ray,Rogers,1560.0,1494.9,0.593,0.407,0.33,Arthur Ray,True
+Arthur Ray,BigRobbo,1560.0,1494.2,0.594,0.406,0.33,Arthur Ray,True
+Arthur Ray,Zac Harris,1560.0,1488.8,0.601,0.399,0.36,Arthur Ray,True
+Arthur Ray,HonestlyBenji,1560.0,1485.2,0.606,0.394,0.37,Arthur Ray,True
+Arthur Ray,Freddie,1560.0,1480.8,0.612,0.388,0.4,Arthur Ray,True
+Arthur Ray,Prophet,1560.0,1480.1,0.613,0.387,0.4,Arthur Ray,True
+Arthur Ray,Lollujo,1560.0,1477.9,0.616,0.384,0.41,Arthur Ray,True
+Arthur Ray,SYC,1560.0,1476.7,0.618,0.382,0.42,Arthur Ray,True
+Arthur Ray,Bennythfc27,1560.0,1472.6,0.623,0.377,0.44,Arthur Ray,True
+Arthur Ray,CookieFM,1560.0,1465.4,0.633,0.367,0.47,Arthur Ray,True
+Arthur Ray,Zealand,1560.0,1462.9,0.636,0.364,0.49,Arthur Ray,True
+Arthur Ray,Rixon,1560.0,1441.7,0.664,0.336,0.59,Arthur Ray,True
+Arthur Ray,Clayts,1560.0,1434.0,0.674,0.326,0.63,Arthur Ray,True
 Tomxrv,Rena,1544.9,1534.8,0.515,0.485,0.05,Too close to call,True
-Tomxrv,DoctorBenjy,1544.9,1534.1,0.516,0.484,0.05,Too close to call,True
 Tomxrv,BillyCCFC,1544.9,1533.5,0.516,0.484,0.06,Too close to call,True
 Tomxrv,Jamesrfc1,1544.9,1511.5,0.548,0.452,0.17,Too close to call,True
 Tomxrv,Wonderkids,1544.9,1509.2,0.551,0.449,0.18,Tomxrv,True
@@ -59,33 +78,13 @@ Tomxrv,Zac Harris,1544.9,1488.8,0.58,0.42,0.28,Tomxrv,True
 Tomxrv,HonestlyBenji,1544.9,1485.2,0.585,0.415,0.3,Tomxrv,True
 Tomxrv,Freddie,1544.9,1480.8,0.591,0.409,0.32,Tomxrv,True
 Tomxrv,Prophet,1544.9,1480.1,0.592,0.408,0.32,Tomxrv,True
+Tomxrv,Lollujo,1544.9,1477.9,0.595,0.405,0.33,Tomxrv,True
 Tomxrv,SYC,1544.9,1476.7,0.597,0.403,0.34,Tomxrv,True
 Tomxrv,Bennythfc27,1544.9,1472.6,0.603,0.397,0.36,Tomxrv,True
 Tomxrv,CookieFM,1544.9,1465.4,0.612,0.388,0.4,Tomxrv,True
 Tomxrv,Zealand,1544.9,1462.9,0.616,0.384,0.41,Tomxrv,True
 Tomxrv,Rixon,1544.9,1441.7,0.644,0.356,0.52,Tomxrv,True
 Tomxrv,Clayts,1544.9,1434.0,0.654,0.346,0.55,Tomxrv,True
-Lollujo,Rena,1535.6,1534.8,0.501,0.499,0.0,Too close to call,True
-Lollujo,DoctorBenjy,1535.6,1534.1,0.502,0.498,0.01,Too close to call,True
-Lollujo,BillyCCFC,1535.6,1533.5,0.503,0.497,0.01,Too close to call,True
-Lollujo,Jamesrfc1,1535.6,1511.5,0.535,0.465,0.12,Too close to call,True
-Lollujo,Wonderkids,1535.6,1509.2,0.538,0.462,0.13,Too close to call,True
-Lollujo,FM Guru,1535.6,1508.9,0.538,0.462,0.13,Too close to call,True
-Lollujo,Mulac,1535.6,1500.2,0.551,0.449,0.18,Lollujo,True
-Lollujo,oldmansudor,1535.6,1495.1,0.558,0.442,0.2,Lollujo,True
-Lollujo,Rogers,1535.6,1494.9,0.558,0.442,0.2,Lollujo,True
-Lollujo,BigRobbo,1535.6,1494.2,0.559,0.441,0.21,Lollujo,True
-Lollujo,Zac Harris,1535.6,1488.8,0.567,0.433,0.23,Lollujo,True
-Lollujo,HonestlyBenji,1535.6,1485.2,0.572,0.428,0.25,Lollujo,True
-Lollujo,Freddie,1535.6,1480.8,0.578,0.422,0.27,Lollujo,True
-Lollujo,Prophet,1535.6,1480.1,0.579,0.421,0.28,Lollujo,True
-Lollujo,SYC,1535.6,1476.7,0.584,0.416,0.29,Lollujo,True
-Lollujo,Bennythfc27,1535.6,1472.6,0.59,0.41,0.32,Lollujo,True
-Lollujo,CookieFM,1535.6,1465.4,0.6,0.4,0.35,Lollujo,True
-Lollujo,Zealand,1535.6,1462.9,0.603,0.397,0.36,Lollujo,True
-Lollujo,Rixon,1535.6,1441.7,0.632,0.368,0.47,Lollujo,True
-Lollujo,Clayts,1535.6,1434.0,0.642,0.358,0.51,Lollujo,True
-Rena,DoctorBenjy,1534.8,1534.1,0.501,0.499,0.0,Too close to call,True
 Rena,BillyCCFC,1534.8,1533.5,0.502,0.498,0.01,Too close to call,True
 Rena,Jamesrfc1,1534.8,1511.5,0.533,0.467,0.12,Too close to call,True
 Rena,Wonderkids,1534.8,1509.2,0.537,0.463,0.13,Too close to call,True
@@ -98,30 +97,13 @@ Rena,Zac Harris,1534.8,1488.8,0.566,0.434,0.23,Rena,True
 Rena,HonestlyBenji,1534.8,1485.2,0.571,0.429,0.25,Rena,True
 Rena,Freddie,1534.8,1480.8,0.577,0.423,0.27,Rena,True
 Rena,Prophet,1534.8,1480.1,0.578,0.422,0.27,Rena,True
+Rena,Lollujo,1534.8,1477.9,0.581,0.419,0.28,Rena,True
 Rena,SYC,1534.8,1476.7,0.583,0.417,0.29,Rena,True
 Rena,Bennythfc27,1534.8,1472.6,0.589,0.411,0.31,Rena,True
 Rena,CookieFM,1534.8,1465.4,0.599,0.401,0.35,Rena,True
 Rena,Zealand,1534.8,1462.9,0.602,0.398,0.36,Rena,True
 Rena,Rixon,1534.8,1441.7,0.631,0.369,0.47,Rena,True
 Rena,Clayts,1534.8,1434.0,0.641,0.359,0.5,Rena,True
-DoctorBenjy,BillyCCFC,1534.1,1533.5,0.501,0.499,0.0,Too close to call,True
-DoctorBenjy,Jamesrfc1,1534.1,1511.5,0.532,0.468,0.11,Too close to call,True
-DoctorBenjy,Wonderkids,1534.1,1509.2,0.536,0.464,0.12,Too close to call,True
-DoctorBenjy,FM Guru,1534.1,1508.9,0.536,0.464,0.13,Too close to call,True
-DoctorBenjy,Mulac,1534.1,1500.2,0.549,0.451,0.17,Too close to call,True
-DoctorBenjy,oldmansudor,1534.1,1495.1,0.556,0.444,0.2,DoctorBenjy,True
-DoctorBenjy,Rogers,1534.1,1494.9,0.556,0.444,0.2,DoctorBenjy,True
-DoctorBenjy,BigRobbo,1534.1,1494.2,0.557,0.443,0.2,DoctorBenjy,True
-DoctorBenjy,Zac Harris,1534.1,1488.8,0.565,0.435,0.23,DoctorBenjy,True
-DoctorBenjy,HonestlyBenji,1534.1,1485.2,0.57,0.43,0.24,DoctorBenjy,True
-DoctorBenjy,Freddie,1534.1,1480.8,0.576,0.424,0.27,DoctorBenjy,True
-DoctorBenjy,Prophet,1534.1,1480.1,0.577,0.423,0.27,DoctorBenjy,True
-DoctorBenjy,SYC,1534.1,1476.7,0.582,0.418,0.29,DoctorBenjy,True
-DoctorBenjy,Bennythfc27,1534.1,1472.6,0.588,0.412,0.31,DoctorBenjy,True
-DoctorBenjy,CookieFM,1534.1,1465.4,0.598,0.402,0.34,DoctorBenjy,True
-DoctorBenjy,Zealand,1534.1,1462.9,0.601,0.399,0.36,DoctorBenjy,True
-DoctorBenjy,Rixon,1534.1,1441.7,0.63,0.37,0.46,DoctorBenjy,True
-DoctorBenjy,Clayts,1534.1,1434.0,0.64,0.36,0.5,DoctorBenjy,True
 BillyCCFC,Jamesrfc1,1533.5,1511.5,0.532,0.468,0.11,Too close to call,True
 BillyCCFC,Wonderkids,1533.5,1509.2,0.535,0.465,0.12,Too close to call,True
 BillyCCFC,FM Guru,1533.5,1508.9,0.535,0.465,0.12,Too close to call,True
@@ -133,6 +115,7 @@ BillyCCFC,Zac Harris,1533.5,1488.8,0.564,0.436,0.22,BillyCCFC,True
 BillyCCFC,HonestlyBenji,1533.5,1485.2,0.569,0.431,0.24,BillyCCFC,True
 BillyCCFC,Freddie,1533.5,1480.8,0.575,0.425,0.26,BillyCCFC,True
 BillyCCFC,Prophet,1533.5,1480.1,0.576,0.424,0.27,BillyCCFC,True
+BillyCCFC,Lollujo,1533.5,1477.9,0.579,0.421,0.28,BillyCCFC,True
 BillyCCFC,SYC,1533.5,1476.7,0.581,0.419,0.28,BillyCCFC,True
 BillyCCFC,Bennythfc27,1533.5,1472.6,0.587,0.413,0.3,BillyCCFC,True
 BillyCCFC,CookieFM,1533.5,1465.4,0.597,0.403,0.34,BillyCCFC,True
@@ -149,6 +132,7 @@ Jamesrfc1,Zac Harris,1511.5,1488.8,0.533,0.467,0.11,Too close to call,True
 Jamesrfc1,HonestlyBenji,1511.5,1485.2,0.538,0.462,0.13,Too close to call,True
 Jamesrfc1,Freddie,1511.5,1480.8,0.544,0.456,0.15,Too close to call,True
 Jamesrfc1,Prophet,1511.5,1480.1,0.545,0.455,0.16,Too close to call,True
+Jamesrfc1,Lollujo,1511.5,1477.9,0.548,0.452,0.17,Too close to call,True
 Jamesrfc1,SYC,1511.5,1476.7,0.55,0.45,0.17,Too close to call,True
 Jamesrfc1,Bennythfc27,1511.5,1472.6,0.556,0.444,0.19,Jamesrfc1,True
 Jamesrfc1,CookieFM,1511.5,1465.4,0.566,0.434,0.23,Jamesrfc1,True
@@ -164,6 +148,7 @@ Wonderkids,Zac Harris,1509.2,1488.8,0.529,0.471,0.1,Too close to call,True
 Wonderkids,HonestlyBenji,1509.2,1485.2,0.535,0.465,0.12,Too close to call,True
 Wonderkids,Freddie,1509.2,1480.8,0.541,0.459,0.14,Too close to call,True
 Wonderkids,Prophet,1509.2,1480.1,0.542,0.458,0.15,Too close to call,True
+Wonderkids,Lollujo,1509.2,1477.9,0.545,0.455,0.16,Too close to call,True
 Wonderkids,SYC,1509.2,1476.7,0.547,0.453,0.16,Too close to call,True
 Wonderkids,Bennythfc27,1509.2,1472.6,0.553,0.447,0.18,Wonderkids,True
 Wonderkids,CookieFM,1509.2,1465.4,0.563,0.437,0.22,Wonderkids,True
@@ -178,6 +163,7 @@ FM Guru,Zac Harris,1508.9,1488.8,0.529,0.471,0.1,Too close to call,True
 FM Guru,HonestlyBenji,1508.9,1485.2,0.534,0.466,0.12,Too close to call,True
 FM Guru,Freddie,1508.9,1480.8,0.54,0.46,0.14,Too close to call,True
 FM Guru,Prophet,1508.9,1480.1,0.541,0.459,0.14,Too close to call,True
+FM Guru,Lollujo,1508.9,1477.9,0.544,0.456,0.15,Too close to call,True
 FM Guru,SYC,1508.9,1476.7,0.546,0.454,0.16,Too close to call,True
 FM Guru,Bennythfc27,1508.9,1472.6,0.552,0.448,0.18,FM Guru,True
 FM Guru,CookieFM,1508.9,1465.4,0.562,0.438,0.22,FM Guru,True
@@ -191,6 +177,7 @@ Mulac,Zac Harris,1500.2,1488.8,0.516,0.484,0.06,Too close to call,True
 Mulac,HonestlyBenji,1500.2,1485.2,0.522,0.478,0.08,Too close to call,True
 Mulac,Freddie,1500.2,1480.8,0.528,0.472,0.1,Too close to call,True
 Mulac,Prophet,1500.2,1480.1,0.529,0.471,0.1,Too close to call,True
+Mulac,Lollujo,1500.2,1477.9,0.532,0.468,0.11,Too close to call,True
 Mulac,SYC,1500.2,1476.7,0.534,0.466,0.12,Too close to call,True
 Mulac,Bennythfc27,1500.2,1472.6,0.54,0.46,0.14,Too close to call,True
 Mulac,CookieFM,1500.2,1465.4,0.55,0.45,0.17,Too close to call,True
@@ -203,6 +190,7 @@ oldmansudor,Zac Harris,1495.1,1488.8,0.509,0.491,0.03,Too close to call,True
 oldmansudor,HonestlyBenji,1495.1,1485.2,0.514,0.486,0.05,Too close to call,True
 oldmansudor,Freddie,1495.1,1480.8,0.52,0.48,0.07,Too close to call,True
 oldmansudor,Prophet,1495.1,1480.1,0.521,0.479,0.07,Too close to call,True
+oldmansudor,Lollujo,1495.1,1477.9,0.525,0.475,0.09,Too close to call,True
 oldmansudor,SYC,1495.1,1476.7,0.526,0.474,0.09,Too close to call,True
 oldmansudor,Bennythfc27,1495.1,1472.6,0.532,0.468,0.11,Too close to call,True
 oldmansudor,CookieFM,1495.1,1465.4,0.543,0.457,0.15,Too close to call,True
@@ -214,6 +202,7 @@ Rogers,Zac Harris,1494.9,1488.8,0.509,0.491,0.03,Too close to call,True
 Rogers,HonestlyBenji,1494.9,1485.2,0.514,0.486,0.05,Too close to call,True
 Rogers,Freddie,1494.9,1480.8,0.52,0.48,0.07,Too close to call,True
 Rogers,Prophet,1494.9,1480.1,0.521,0.479,0.07,Too close to call,True
+Rogers,Lollujo,1494.9,1477.9,0.524,0.476,0.08,Too close to call,True
 Rogers,SYC,1494.9,1476.7,0.526,0.474,0.09,Too close to call,True
 Rogers,Bennythfc27,1494.9,1472.6,0.532,0.468,0.11,Too close to call,True
 Rogers,CookieFM,1494.9,1465.4,0.542,0.458,0.15,Too close to call,True
@@ -224,6 +213,7 @@ BigRobbo,Zac Harris,1494.2,1488.8,0.508,0.492,0.03,Too close to call,True
 BigRobbo,HonestlyBenji,1494.2,1485.2,0.513,0.487,0.05,Too close to call,True
 BigRobbo,Freddie,1494.2,1480.8,0.519,0.481,0.07,Too close to call,True
 BigRobbo,Prophet,1494.2,1480.1,0.52,0.48,0.07,Too close to call,True
+BigRobbo,Lollujo,1494.2,1477.9,0.523,0.477,0.08,Too close to call,True
 BigRobbo,SYC,1494.2,1476.7,0.525,0.475,0.09,Too close to call,True
 BigRobbo,Bennythfc27,1494.2,1472.6,0.531,0.469,0.11,Too close to call,True
 BigRobbo,CookieFM,1494.2,1465.4,0.541,0.459,0.14,Too close to call,True
@@ -233,6 +223,7 @@ BigRobbo,Clayts,1494.2,1434.0,0.586,0.414,0.3,BigRobbo,True
 Zac Harris,HonestlyBenji,1488.8,1485.2,0.505,0.495,0.02,Too close to call,True
 Zac Harris,Freddie,1488.8,1480.8,0.511,0.489,0.04,Too close to call,True
 Zac Harris,Prophet,1488.8,1480.1,0.512,0.488,0.04,Too close to call,True
+Zac Harris,Lollujo,1488.8,1477.9,0.516,0.484,0.05,Too close to call,True
 Zac Harris,SYC,1488.8,1476.7,0.517,0.483,0.06,Too close to call,True
 Zac Harris,Bennythfc27,1488.8,1472.6,0.523,0.477,0.08,Too close to call,True
 Zac Harris,CookieFM,1488.8,1465.4,0.534,0.466,0.12,Too close to call,True
@@ -241,6 +232,7 @@ Zac Harris,Rixon,1488.8,1441.7,0.567,0.433,0.24,Zac Harris,True
 Zac Harris,Clayts,1488.8,1434.0,0.578,0.422,0.27,Zac Harris,True
 HonestlyBenji,Freddie,1485.2,1480.8,0.506,0.494,0.02,Too close to call,True
 HonestlyBenji,Prophet,1485.2,1480.1,0.507,0.493,0.03,Too close to call,True
+HonestlyBenji,Lollujo,1485.2,1477.9,0.51,0.49,0.04,Too close to call,True
 HonestlyBenji,SYC,1485.2,1476.7,0.512,0.488,0.04,Too close to call,True
 HonestlyBenji,Bennythfc27,1485.2,1472.6,0.518,0.482,0.06,Too close to call,True
 HonestlyBenji,CookieFM,1485.2,1465.4,0.528,0.472,0.1,Too close to call,True
@@ -248,18 +240,26 @@ HonestlyBenji,Zealand,1485.2,1462.9,0.532,0.468,0.11,Too close to call,True
 HonestlyBenji,Rixon,1485.2,1441.7,0.562,0.438,0.22,HonestlyBenji,True
 HonestlyBenji,Clayts,1485.2,1434.0,0.573,0.427,0.26,HonestlyBenji,True
 Freddie,Prophet,1480.8,1480.1,0.501,0.499,0.0,Too close to call,True
+Freddie,Lollujo,1480.8,1477.9,0.504,0.496,0.01,Too close to call,True
 Freddie,SYC,1480.8,1476.7,0.506,0.494,0.02,Too close to call,True
 Freddie,Bennythfc27,1480.8,1472.6,0.512,0.488,0.04,Too close to call,True
 Freddie,CookieFM,1480.8,1465.4,0.522,0.478,0.08,Too close to call,True
 Freddie,Zealand,1480.8,1462.9,0.526,0.474,0.09,Too close to call,True
 Freddie,Rixon,1480.8,1441.7,0.556,0.444,0.2,Freddie,True
 Freddie,Clayts,1480.8,1434.0,0.567,0.433,0.23,Freddie,True
+Prophet,Lollujo,1480.1,1477.9,0.503,0.497,0.01,Too close to call,True
 Prophet,SYC,1480.1,1476.7,0.505,0.495,0.02,Too close to call,True
 Prophet,Bennythfc27,1480.1,1472.6,0.511,0.489,0.04,Too close to call,True
 Prophet,CookieFM,1480.1,1465.4,0.521,0.479,0.07,Too close to call,True
 Prophet,Zealand,1480.1,1462.9,0.525,0.475,0.09,Too close to call,True
 Prophet,Rixon,1480.1,1441.7,0.555,0.445,0.19,Prophet,True
 Prophet,Clayts,1480.1,1434.0,0.566,0.434,0.23,Prophet,True
+Lollujo,SYC,1477.9,1476.7,0.502,0.498,0.01,Too close to call,True
+Lollujo,Bennythfc27,1477.9,1472.6,0.508,0.492,0.03,Too close to call,True
+Lollujo,CookieFM,1477.9,1465.4,0.518,0.482,0.06,Too close to call,True
+Lollujo,Zealand,1477.9,1462.9,0.522,0.478,0.08,Too close to call,True
+Lollujo,Rixon,1477.9,1441.7,0.552,0.448,0.18,Lollujo,True
+Lollujo,Clayts,1477.9,1434.0,0.563,0.437,0.22,Lollujo,True
 SYC,Bennythfc27,1476.7,1472.6,0.506,0.494,0.02,Too close to call,True
 SYC,CookieFM,1476.7,1465.4,0.516,0.484,0.06,Too close to call,True
 SYC,Zealand,1476.7,1462.9,0.52,0.48,0.07,Too close to call,True
