@@ -394,9 +394,8 @@ def build_table(teams, min_games: int) -> pd.DataFrame:
 
 
 def build_predictions(teams, team_names) -> pd.DataFrame:
-    """Every pairing of the given teams, once each. The main columns are for a
-    neutral venue; the *_home_win_expectancy columns give each team's chance
-    when it is the home side."""
+    """Every pairing of the given teams, once each, predicted at a neutral venue
+    (no home advantage), using ratings that already allow for home advantage."""
     ordered = sorted(team_names, key=lambda n: -teams[n]["rating"])
     rows = []
     for i, t1 in enumerate(ordered):
@@ -421,10 +420,9 @@ def build_predictions(teams, team_names) -> pd.DataFrame:
                "team1_win_expectancy", "team2_win_expectancy",
                "team1_home_win_expectancy", "team2_home_win_expectancy",
                "expected_gd_team1", "favourite", "either_provisional"]
-    out = pd.DataFrame(rows, columns=columns)
-    if not HOME_ADVANTAGE:  # home columns would just repeat the neutral ones
-        out = out.drop(columns=["team1_home_win_expectancy", "team2_home_win_expectancy"])
-    return out
+    # Predictions are for a neutral venue only; the home columns are left out of the output.
+    return pd.DataFrame(rows, columns=columns).drop(
+        columns=["team1_home_win_expectancy", "team2_home_win_expectancy"])
 
 
 def predict(teams, t1, t2):
