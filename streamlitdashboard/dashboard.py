@@ -47,8 +47,12 @@ LABELS = {
     "team2": ("Team 2", None),
     "team1_rating": ("Team 1 Rating", "Current Elo rating"),
     "team2_rating": ("Team 2 Rating", "Current Elo rating"),
-    "team1_win_expectancy": ("Team 1 Win Chance", "Expected result for Team 1, with a draw counted as half a win"),
-    "team2_win_expectancy": ("Team 2 Win Chance", "Expected result for Team 2, with a draw counted as half a win"),
+    "team1_win_expectancy": ("Team 1 Win Chance", "Expected result for Team 1 at a neutral venue, with a draw counted as half a win"),
+    "team2_win_expectancy": ("Team 2 Win Chance", "Expected result for Team 2 at a neutral venue, with a draw counted as half a win"),
+    "team1_home_win_expectancy": ("Team 1 Win Chance (Team 1 at Home)",
+                                  "Expected result for Team 1 when Team 1 is the home side (+30 home advantage)"),
+    "team2_home_win_expectancy": ("Team 2 Win Chance (Team 2 at Home)",
+                                  "Expected result for Team 2 when Team 2 is the home side (+30 home advantage)"),
     "expected_gd_team1": ("Expected Goal Difference", "Which team the ratings expect to win, and by how many goals"),
     "favourite": ("Favourite", "'Too close to call' when the win chances are within 45–55%"),
     "either_provisional": ("Provisional?", "Ticked if either team is still provisional (fewer than 15 games), so the prediction is less reliable"),
@@ -70,6 +74,7 @@ LABELS = {
     "date": ("Date", None),
     "game_order": ("Game Order", "Order of games played on the same day"),
     "competition": ("Competition", None),
+    "neutral": ("Neutral Venue?", "Ticked when neither team was at home. Otherwise Team 1 was the home side."),
     "goals1": ("Team 1 Score", None),
     "goals2": ("Team 2 Score", None),
     "team1_before": ("Team 1 Pre-Game Elo", "Team 1's rating going into this game"),
@@ -84,7 +89,8 @@ RESULTS_COLUMN_ORDER = ["date", "game_order", "competition", "team1", "team1_bef
                         "goals2", "team2_before", "team2", "pregame_prediction"]
 # Internal working columns from fm_draft_elo.py that the Results tab doesn't show.
 RESULTS_HIDDEN = ["csv_row", "match_weight"]
-PCT_COLS = {"team1_win_expectancy", "team2_win_expectancy"}
+PCT_COLS = {"team1_win_expectancy", "team2_win_expectancy",
+            "team1_home_win_expectancy", "team2_home_win_expectancy"}
 
 
 def label(col: str) -> str:
