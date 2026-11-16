@@ -100,13 +100,14 @@ COMPETITION_K = {
 }
 
 # Home advantage (World Football Elo style, but 30 points instead of 100; 30 fits
-# the Benjy Discord group-stage results best: about +4% win chance between equal teams).
+# the group-stage results best: about +4% win chance between equal teams).
 # team1 is the home side. When working out the expected result, team1 is treated
 # as HOME_ADVANTAGE points stronger; ratings themselves are untouched. So a home
 # win earns less and a home draw/loss costs more. Neutral games get no bonus.
 HOME_ADVANTAGE = 30          # points added to team1 (home) in the expected result; 0 = off
 # Competitions played at a neutral venue (same matching rules as COMPETITION_K).
-NEUTRAL_COMPETITIONS = ["streamer showdown"]
+# Empty: every competition so far, Streamer Showdown included, has a home side.
+NEUTRAL_COMPETITIONS = []
 # An optional "neutral" column in the sheet overrides this for single games:
 # yes/y/true/1/x = neutral, no/n/false/0 = team1 at home, blank = use the list above.
 
