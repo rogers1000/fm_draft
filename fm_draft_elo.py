@@ -66,7 +66,10 @@ Matches are processed by date, then game_order within that date (so a team
 playing several games in one day carries its updated rating into the next).
 game_order is optional; without it, same-date games keep their CSV order.
 Rows missing a game_order run after that day's numbered games.
-Home advantage is deliberately NOT used: team1/team2 are interchangeable.
+team1 is the HOME side. Home advantage is currently switched off
+(HOME_ADVANTAGE = 0); set it to 50 to give team1 that many points in the expected
+result, except in neutral games (NEUTRAL_COMPETITIONS, or a "neutral" column).
+stage (e.g. Group / KO) is optional and recorded for analysis only.
 """
 
 import argparse
@@ -95,6 +98,17 @@ K = 30                       # match weight for any competition not listed below
 COMPETITION_K = {
     "streamer showdown": 60,
 }
+
+# Home advantage (World Football Elo style, but 50 points instead of 100).
+# team1 is the home side. When working out the expected result, team1 is treated
+# as HOME_ADVANTAGE points stronger; ratings themselves are untouched. So a home
+# win earns less and a home draw/loss costs more. Neutral games get no bonus.
+HOME_ADVANTAGE = 0           # switched OFF for now; 50 is the suggested value to turn it on
+# Competitions played at a neutral venue (same matching rules as COMPETITION_K).
+NEUTRAL_COMPETITIONS = ["streamer showdown"]
+# An optional "neutral" column in the sheet overrides this for single games:
+# yes/y/true/1/x = neutral, no/n/false/0 = team1 at home, blank = use the list above.
+
 PROVISIONAL_GAMES = 15       # teams with fewer games are labelled provisional (label only)
 RESULT_WEIGHT = 0.6          # share of the change driven by W/D/L
 SCORE_WEIGHT = 0.4           # share driven by goal difference vs expectation
@@ -111,8 +125,44 @@ COLUMN_ALIASES = {
     "goals1": ["goals1", "score1", "home_goals", "home_score", "goals_a"],
     "goals2": ["goals2", "score2", "away_goals", "away_score", "goals_b"],
     "competition": ["competition", "comp", "event", "tournament", "match_type", "type"],
+    "neutral": ["neutral", "neutral_venue", "is_neutral"],
+    # Recorded for analysis only (e.g. Group / KO); it does not change ratings.
+    "stage": ["stage", "round", "phase"],
 }
-OPTIONAL_COLUMNS = ("date", "game_order", "competition")
+OPTIONAL_COLUMNS = ("date", "game_order", "competition", "neutral", "stage")
+
+
+def _norm_name(text) -> str:
+    return " ".join(str(text).lower().split())
+
+
+STAGE_SPELLINGS = {
+    "group": "Group", "groups": "Group", "group stage": "Group",
+    "ko": "KO", "k.o.": "KO", "knockout": "KO", "knock out": "KO", "knock-out": "KO",
+    "knockouts": "KO",
+}
+
+
+def clean_stage(stage):
+    """Standardise common spellings (group -> Group, knockout -> KO); keep anything else as typed."""
+    if stage is None or pd.isna(stage) or not str(stage).strip():
+        return None
+    text = " ".join(str(stage).split())
+    return STAGE_SPELLINGS.get(text.lower(), text)
+
+
+def is_neutral(competition, override=None) -> bool:
+    """True when the game has no home side."""
+    if override is not None and not pd.isna(override) and str(override).strip():
+        flag = str(override).strip().lower()
+        if flag in ("yes", "y", "true", "1", "x", "neutral"):
+            return True
+        if flag in ("no", "n", "false", "0", "home"):
+            return False
+    if competition is None or pd.isna(competition):
+        return False
+    name = _norm_name(competition)
+    return any(_norm_name(key) in name for key in NEUTRAL_COMPETITIONS)
 
 
 def match_k(competition) -> float:
@@ -242,11 +292,29 @@ def load_results(source: str, dayfirst: bool) -> pd.DataFrame:
         lambda c: None if pd.isna(c) or not str(c).strip() else " ".join(str(c).split())
     ).astype(object)
     df["match_weight"] = df["competition"].map(match_k)
+    if "neutral" not in df.columns:
+        df["neutral"] = None
+    df["neutral"] = [is_neutral(c, o) for c, o in zip(df["competition"], df["neutral"])]
     summary = (df.assign(competition=df["competition"].fillna("(blank)"))
-                 .groupby("competition", sort=False)["match_weight"].agg(["first", "size"]))
+                 .groupby("competition", sort=False)
+                 .agg(weight=("match_weight", "first"), games=("match_weight", "size"),
+                      neutral=("neutral", "sum")))
     for comp, row in summary.iterrows():
-        print(f"Competition '{comp}': {row['size']} game(s) at weight {row['first']:g}",
-              file=sys.stderr)
+        if HOME_ADVANTAGE:
+            venue = (", neutral" if row["neutral"] == row["games"] else
+                     ", team1 at home" if row["neutral"] == 0 else
+                     f", {row['neutral']} neutral, rest team1 at home")
+        else:
+            venue = ""
+        print(f"Competition '{comp}': {row['games']} game(s) at weight {row['weight']:g}"
+              f"{venue}", file=sys.stderr)
+
+    if "stage" not in df.columns:
+        df["stage"] = None
+    df["stage"] = df["stage"].map(clean_stage).astype(object)
+    if len(df):
+        counts = df["stage"].fillna("(blank)").value_counts()
+        print("Stages: " + ", ".join(f"{k} {v}" for k, v in counts.items()), file=sys.stderr)
     return df.reset_index(drop=True)
 
 
@@ -266,7 +334,8 @@ def run(df: pd.DataFrame):
         b = teams.setdefault(m.team2, new_team())
         ra, rb = a["rating"], b["rating"]
 
-        ch_a, da = rating_change(ra, rb, m.goals1, m.goals2, m.match_weight)
+        home = 0 if m.neutral else HOME_ADVANTAGE
+        ch_a, da = rating_change(ra + home, rb, m.goals1, m.goals2, m.match_weight)
         ch_b = -ch_a  # zero-sum: whatever one team gains, the other loses
 
         date = getattr(m, "date", None)
@@ -284,6 +353,8 @@ def run(df: pd.DataFrame):
             "game_order": (int(m.game_order) if hasattr(m, "game_order")
                            and pd.notna(m.game_order) else None),
             "competition": m.competition, "match_weight": m.match_weight,
+            "stage": m.stage,
+            "neutral": bool(m.neutral), "home_advantage": home,
             "team1": m.team1, "team2": m.team2,
             "goals1": m.goals1, "goals2": m.goals2,
             "team1_before": round(ra, 1), "team2_before": round(rb, 1),
@@ -293,6 +364,7 @@ def run(df: pd.DataFrame):
             "team1_after": round(a["rating"], 1), "team2_after": round(b["rating"], 1),
         })
     columns = ["date", "game_order", "competition", "match_weight",
+               "stage", "neutral", "home_advantage",
                "team1", "team2", "goals1", "goals2",
                "team1_before", "team2_before", "team1_win_expectancy",
                "expected_gd_team1", "team1_change", "team2_change",
@@ -321,7 +393,9 @@ def build_table(teams, min_games: int) -> pd.DataFrame:
 
 
 def build_predictions(teams, team_names) -> pd.DataFrame:
-    """Every pairing of the given teams (each pair once; no home advantage)."""
+    """Every pairing of the given teams, once each. The main columns are for a
+    neutral venue; the *_home_win_expectancy columns give each team's chance
+    when it is the home side."""
     ordered = sorted(team_names, key=lambda n: -teams[n]["rating"])
     rows = []
     for i, t1 in enumerate(ordered):
@@ -335,6 +409,8 @@ def build_predictions(teams, team_names) -> pd.DataFrame:
                 "team1_rating": round(r1, 1), "team2_rating": round(r2, 1),
                 "team1_win_expectancy": round(e, 3),
                 "team2_win_expectancy": round(1 - e, 3),
+                "team1_home_win_expectancy": round(expected_result(r1 + HOME_ADVANTAGE, r2), 3),
+                "team2_home_win_expectancy": round(expected_result(r2 + HOME_ADVANTAGE, r1), 3),
                 "expected_gd_team1": round(gd, 2),
                 "favourite": fav if abs(e - 0.5) > TOSS_UP_MARGIN else "Too close to call",
                 "either_provisional": teams[t1]["games"] < PROVISIONAL_GAMES
@@ -342,18 +418,26 @@ def build_predictions(teams, team_names) -> pd.DataFrame:
             })
     columns = ["team1", "team2", "team1_rating", "team2_rating",
                "team1_win_expectancy", "team2_win_expectancy",
+               "team1_home_win_expectancy", "team2_home_win_expectancy",
                "expected_gd_team1", "favourite", "either_provisional"]
-    return pd.DataFrame(rows, columns=columns)
+    out = pd.DataFrame(rows, columns=columns)
+    if not HOME_ADVANTAGE:  # home columns would just repeat the neutral ones
+        out = out.drop(columns=["team1_home_win_expectancy", "team2_home_win_expectancy"])
+    return out
 
 
 def predict(teams, t1, t2):
     r1 = teams.get(t1, new_team())["rating"]
     r2 = teams.get(t2, new_team())["rating"]
-    e = expected_result(r1, r2)
-    gd = expected_goal_diff(r1, r2)
-    print(f"\n{t1} ({r1:.0f}) vs {t2} ({r2:.0f})")
-    print(f"  Win expectancy for {t1}: {e:.1%}  (draw counted as half)")
-    print(f"  Expected goal difference: {gd:+.2f} to {t1 if gd >= 0 else t2}")
+    print(f"\n{t1} ({r1:.0f}) vs {t2} ({r2:.0f})   (win expectancy, draw counted as half)")
+    venues = [("Neutral venue", 0)]
+    if HOME_ADVANTAGE:
+        venues += [(f"{t1} at home", HOME_ADVANTAGE), (f"{t2} at home", -HOME_ADVANTAGE)]
+    for venue, home in venues:
+        e = expected_result(r1 + home, r2)
+        gd = expected_goal_diff(r1 + home, r2)
+        print(f"  {venue:<28} {t1} {e:.1%} / {t2} {1 - e:.1%}, "
+              f"expected goal difference {abs(gd):.2f} to {t1 if gd >= 0 else t2}")
     for name in (t1, t2):
         if name not in teams:
             print(f"  Note: {name} has no games yet - using start rating {START_RATING}.")
