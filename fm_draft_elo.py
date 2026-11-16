@@ -66,9 +66,9 @@ Matches are processed by date, then game_order within that date (so a team
 playing several games in one day carries its updated rating into the next).
 game_order is optional; without it, same-date games keep their CSV order.
 Rows missing a game_order run after that day's numbered games.
-team1 is the HOME side. Home advantage is currently switched off
-(HOME_ADVANTAGE = 0); set it to 50 to give team1 that many points in the expected
-result, except in neutral games (NEUTRAL_COMPETITIONS, or a "neutral" column).
+team1 is the HOME side and gets HOME_ADVANTAGE (30) points in the expected
+result (set it to 0 to switch off),
+except in neutral games (NEUTRAL_COMPETITIONS, or a "neutral" column).
 stage (e.g. Group / KO) is optional and recorded for analysis only.
 """
 
@@ -99,11 +99,12 @@ COMPETITION_K = {
     "streamer showdown": 60,
 }
 
-# Home advantage (World Football Elo style, but 50 points instead of 100).
+# Home advantage (World Football Elo style, but 30 points instead of 100; 30 fits
+# the Benjy Discord group-stage results best: about +4% win chance between equal teams).
 # team1 is the home side. When working out the expected result, team1 is treated
 # as HOME_ADVANTAGE points stronger; ratings themselves are untouched. So a home
 # win earns less and a home draw/loss costs more. Neutral games get no bonus.
-HOME_ADVANTAGE = 0           # switched OFF for now; 50 is the suggested value to turn it on
+HOME_ADVANTAGE = 30          # points added to team1 (home) in the expected result; 0 = off
 # Competitions played at a neutral venue (same matching rules as COMPETITION_K).
 NEUTRAL_COMPETITIONS = ["streamer showdown"]
 # An optional "neutral" column in the sheet overrides this for single games:
