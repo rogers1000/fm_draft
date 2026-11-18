@@ -4,7 +4,9 @@ Football Elo ranking system
 ===========================
 
 Reads match results from a CSV and produces:
-  * rankings.csv        - current table, one row per team
+  * rankings.csv        - current table, one row per team: the RESULTS rating
+                          (from scores) plus a PERFORMANCE rating (from xG, when the
+                          sheet's optional xg1/xg2 columns are filled in)
   * rating_history.csv  - every match with ratings before/after and the change
   * predictions.csv     - every possible pairing of teams, with win expectancy
                           and expected goal difference from current ratings
@@ -108,8 +110,14 @@ HOME_ADVANTAGE = 30          # points added to team1 (home) in the expected resu
 # Competitions played at a neutral venue (same matching rules as COMPETITION_K).
 # Empty: every competition so far, Streamer Showdown included, has a home side.
 NEUTRAL_COMPETITIONS = []
-# An optional "neutral" column in the sheet overrides this for single games:
-# yes/y/true/1/x = neutral, no/n/false/0 = team1 at home, blank = use the list above.
+# Stages played at a neutral venue, per competition (Benjy Discord rules: every
+# knockout game is neutral; the group stage has a home side). Stage names are the
+# cleaned ones from the sheet's round/stage column, e.g. "Group" or "KO".
+NEUTRAL_STAGES = {
+    "benjy discord": ["KO"],
+}
+# An optional "neutral" column in the sheet overrides all of this for single games:
+# yes/y/true/1/x = neutral, no/n/false/0 = team1 at home, blank = use the rules above.
 
 PROVISIONAL_GAMES = 15       # teams with fewer games are labelled provisional (label only)
 RESULT_WEIGHT = 0.6          # share of the change driven by W/D/L
@@ -130,8 +138,11 @@ COLUMN_ALIASES = {
     "neutral": ["neutral", "neutral_venue", "is_neutral"],
     # Recorded for analysis only (e.g. Group / KO); it does not change ratings.
     "stage": ["stage", "round", "phase"],
+    # Optional xG for each side, from the match report. Used only by the performance rating.
+    "xg1": ["xg1", "xg_1", "team1_xg", "home_xg", "xg_home"],
+    "xg2": ["xg2", "xg_2", "team2_xg", "away_xg", "xg_away"],
 }
-OPTIONAL_COLUMNS = ("date", "game_order", "competition", "neutral", "stage")
+OPTIONAL_COLUMNS = ("date", "game_order", "competition", "neutral", "stage", "xg1", "xg2")
 
 
 def _norm_name(text) -> str:
@@ -153,7 +164,7 @@ def clean_stage(stage):
     return STAGE_SPELLINGS.get(text.lower(), text)
 
 
-def is_neutral(competition, override=None) -> bool:
+def is_neutral(competition, override=None, stage=None) -> bool:
     """True when the game has no home side."""
     if override is not None and not pd.isna(override) and str(override).strip():
         flag = str(override).strip().lower()
@@ -164,7 +175,13 @@ def is_neutral(competition, override=None) -> bool:
     if competition is None or pd.isna(competition):
         return False
     name = _norm_name(competition)
-    return any(_norm_name(key) in name for key in NEUTRAL_COMPETITIONS)
+    if any(_norm_name(key) in name for key in NEUTRAL_COMPETITIONS):
+        return True
+    if stage is not None and not pd.isna(stage):
+        for key, stages in NEUTRAL_STAGES.items():
+            if _norm_name(key) in name and _norm_name(stage) in {_norm_name(s) for s in stages}:
+                return True
+    return False
 
 
 def match_k(competition) -> float:
@@ -202,6 +219,31 @@ def rating_change(r_team, r_opp, goals_for, goals_against, k=None):
     score_surprise = math.tanh((gd - exp_gd) / MARGIN_SOFTNESS)
     change = k * (RESULT_WEIGHT * result_surprise + SCORE_WEIGHT * score_surprise)
     return change, {"expected_result": exp_res, "expected_gd": exp_gd}
+
+
+# ---------------------------------------------------------------------------
+# Performance rating (xG Elo)
+# ---------------------------------------------------------------------------
+# A second, separate rating that learns from chances instead of the scoreline:
+# the "result" is the chance each side had of winning given its xG (draw = half),
+# and the margin is the xG difference. Same home advantage, K and maths as the
+# results rating. Games with no xG entered fall back to the actual score.
+def xg_result(xg_for: float, xg_against: float, max_goals: int = 12) -> float:
+    """Expected result (win = 1, draw = 0.5) from both sides' xG, treating goals as Poisson."""
+    pf = [math.exp(-xg_for) * xg_for ** k / math.factorial(k) for k in range(max_goals)]
+    pa = [math.exp(-xg_against) * xg_against ** k / math.factorial(k) for k in range(max_goals)]
+    win = sum(pf[i] * pa[j] for i in range(max_goals) for j in range(i))
+    draw = sum(pf[i] * pa[i] for i in range(max_goals))
+    return win + 0.5 * draw
+
+
+def performance_change(r_team, r_opp, result, margin, k=None):
+    """Like rating_change, but with a fractional result and an xG margin."""
+    k = K if k is None else k
+    exp_res = expected_result(r_team, r_opp)
+    exp_gd = expected_goal_diff(r_team, r_opp)
+    return k * (RESULT_WEIGHT * (result - exp_res)
+                + SCORE_WEIGHT * math.tanh((margin - exp_gd) / MARGIN_SOFTNESS))
 
 
 # ---------------------------------------------------------------------------
@@ -294,9 +336,13 @@ def load_results(source: str, dayfirst: bool) -> pd.DataFrame:
         lambda c: None if pd.isna(c) or not str(c).strip() else " ".join(str(c).split())
     ).astype(object)
     df["match_weight"] = df["competition"].map(match_k)
+    if "stage" not in df.columns:
+        df["stage"] = None
+    df["stage"] = df["stage"].map(clean_stage).astype(object)
     if "neutral" not in df.columns:
         df["neutral"] = None
-    df["neutral"] = [is_neutral(c, o) for c, o in zip(df["competition"], df["neutral"])]
+    df["neutral"] = [is_neutral(c, o, s) for c, o, s in
+                     zip(df["competition"], df["neutral"], df["stage"])]
     summary = (df.assign(competition=df["competition"].fillna("(blank)"))
                  .groupby("competition", sort=False)
                  .agg(weight=("match_weight", "first"), games=("match_weight", "size"),
@@ -311,9 +357,13 @@ def load_results(source: str, dayfirst: bool) -> pd.DataFrame:
         print(f"Competition '{comp}': {row['games']} game(s) at weight {row['weight']:g}"
               f"{venue}", file=sys.stderr)
 
-    if "stage" not in df.columns:
-        df["stage"] = None
-    df["stage"] = df["stage"].map(clean_stage).astype(object)
+    for c in ("xg1", "xg2"):
+        df[c] = pd.to_numeric(df[c], errors="coerce") if c in df.columns else float("nan")
+    with_xg = (df["xg1"].notna() & df["xg2"].notna()).sum()
+    if len(df):
+        print(f"xG entered for {with_xg} of {len(df)} game(s) "
+              f"(the rest use the score in the performance rating)", file=sys.stderr)
+
     if len(df):
         counts = df["stage"].fillna("(blank)").value_counts()
         print("Stages: " + ", ".join(f"{k} {v}" for k, v in counts.items()), file=sys.stderr)
@@ -325,7 +375,8 @@ def load_results(source: str, dayfirst: bool) -> pd.DataFrame:
 # ---------------------------------------------------------------------------
 def new_team():
     return {"rating": START_RATING, "games": 0, "W": 0, "D": 0, "L": 0,
-            "GF": 0, "GA": 0, "peak": START_RATING, "last_played": None}
+            "GF": 0, "GA": 0, "peak": START_RATING, "last_played": None,
+            "perf": START_RATING, "xg_games": 0, "xGF": 0.0, "xGA": 0.0}
 
 
 def run(df: pd.DataFrame):
@@ -339,6 +390,20 @@ def run(df: pd.DataFrame):
         home = 0 if m.neutral else HOME_ADVANTAGE
         ch_a, da = rating_change(ra + home, rb, m.goals1, m.goals2, m.match_weight)
         ch_b = -ch_a  # zero-sum: whatever one team gains, the other loses
+
+        # Performance rating: from xG when both sides have it, otherwise from the score.
+        pa, pb = a["perf"], b["perf"]
+        has_xg = pd.notna(m.xg1) and pd.notna(m.xg2)
+        if has_xg:
+            p_res, p_margin = xg_result(m.xg1, m.xg2), m.xg1 - m.xg2
+            for t, xf, xa in ((a, m.xg1, m.xg2), (b, m.xg2, m.xg1)):
+                t["xg_games"] += 1; t["xGF"] += xf; t["xGA"] += xa
+        else:
+            gd = m.goals1 - m.goals2
+            p_res, p_margin = (1.0 if gd > 0 else 0.5 if gd == 0 else 0.0), gd
+        pch = performance_change(pa + home, pb, p_res, p_margin, m.match_weight)
+        a["perf"] += pch
+        b["perf"] -= pch
 
         date = getattr(m, "date", None)
         for t, gf, ga, ch in ((a, m.goals1, m.goals2, ch_a), (b, m.goals2, m.goals1, ch_b)):
@@ -364,13 +429,18 @@ def run(df: pd.DataFrame):
             "expected_gd_team1": round(da["expected_gd"], 2),
             "team1_change": round(ch_a, 1), "team2_change": round(ch_b, 1),
             "team1_after": round(a["rating"], 1), "team2_after": round(b["rating"], 1),
+            "xg1": m.xg1 if has_xg else None, "xg2": m.xg2 if has_xg else None,
+            "team1_perf_before": round(pa, 1), "team2_perf_before": round(pb, 1),
+            "team1_perf_change": round(pch, 1), "team2_perf_change": round(-pch, 1),
         })
     columns = ["date", "game_order", "competition", "match_weight",
                "stage", "neutral", "home_advantage",
                "team1", "team2", "goals1", "goals2",
                "team1_before", "team2_before", "team1_win_expectancy",
                "expected_gd_team1", "team1_change", "team2_change",
-               "team1_after", "team2_after"]
+               "team1_after", "team2_after",
+               "xg1", "xg2", "team1_perf_before", "team2_perf_before",
+               "team1_perf_change", "team2_perf_change"]
     return teams, pd.DataFrame(history, columns=columns)
 
 
@@ -385,12 +455,24 @@ def build_table(teams, min_games: int) -> pd.DataFrame:
             "peak_rating": round(t["peak"], 1),
             "provisional": t["games"] < PROVISIONAL_GAMES,
             "last_played": t["last_played"].date() if t["last_played"] is not None else None,
+            "performance_rating": round(t["perf"], 1),
+            "xg_games": t["xg_games"],
+            "xGF": round(t["xGF"], 2), "xGA": round(t["xGA"], 2),
         })
     columns = ["team", "rating", "played", "W", "D", "L", "GF", "GA", "GD",
-               "peak_rating", "provisional", "last_played"]
+               "peak_rating", "provisional", "last_played",
+               "performance_rating", "xg_games", "xGF", "xGA"]
     table = pd.DataFrame(rows, columns=columns).sort_values("rating", ascending=False)
     table = table[table["played"] >= min_games].reset_index(drop=True)
     table.insert(0, "rank", table.index + 1)
+    # Teams with no xG games have no performance data (their figure would just copy the
+    # results rating), so they get a blank performance rating and rank.
+    no_xg = table["xg_games"] == 0
+    table["performance_rating"] = table["performance_rating"].mask(no_xg)
+    perf_rank = table["performance_rating"].rank(ascending=False, method="min").astype("Int64")
+    table.insert(table.columns.get_loc("performance_rating") + 1, "performance_rank", perf_rank)
+    for c in ("xGF", "xGA"):
+        table[c] = table[c].mask(no_xg)
     return table
 
 
