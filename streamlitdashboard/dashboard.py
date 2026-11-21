@@ -100,8 +100,8 @@ LABELS = {
                            "was playing its first game, and 'Draw - 50.0%' when the ratings "
                            "were level."),
 }
-RESULTS_COLUMN_ORDER = ["date", "game_order", "competition", "team1", "team1_before", "goals1",
-                        "goals2", "team2_before", "team2", "pregame_prediction"]
+RESULTS_COLUMN_ORDER = ["date", "game_order", "competition", "team1", "team1_before", "xg1", "goals1",
+                        "goals2", "xg2", "team2_before", "team2", "pregame_prediction"]
 # Internal working columns from fm_draft_elo.py that the Results tab doesn't show.
 RESULTS_HIDDEN = ["csv_row", "match_weight"]
 PCT_COLS = {"team1_win_expectancy", "team2_win_expectancy",
