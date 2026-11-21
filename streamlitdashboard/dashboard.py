@@ -59,7 +59,19 @@ LABELS = {
     # Rankings
     "rank": ("Rank", None),
     "team": ("Team", None),
-    "rating": ("Rating", "Current Elo rating (everyone starts at 1500)"),
+    "rating": ("Results Rating", "Elo from actual scores (everyone starts at 1500). This decides the rank."),
+    "performance_rating": ("Performance Rating",
+                           "Elo from xG instead of goals: who created and allowed the better chances, "
+                           "win or lose. Blank until a team has a game with xG; games without xG use the score."),
+    "performance_rank": ("Performance Rank", "Rank by performance rating, among teams with xG data"),
+    "xg_games": ("Games with xG", "Games where xG was entered, which feed the performance rating"),
+    "xGF": ("xG For", "Total xG created in games with xG"),
+    "xGA": ("xG Against", "Total xG conceded in games with xG"),
+    "results_rank": ("Results Rank", "Official rank, by Results Rating"),
+    "xg_diff_per_game":("xG Difference per Game", "(xG For − xG Against) ÷ games with xG"),
+    "results_minus_performance": ("Results − Performance",
+                                  "Results Rating minus Performance Rating. Positive: results better than "
+                                  "the chances suggest (clinical or lucky). Negative: unlucky or wasteful."),
     "played": ("Played", None),
     "W": ("Won", None),
     "D": ("Drawn", None),
@@ -77,11 +89,14 @@ LABELS = {
     "neutral": ("Neutral Venue?", "Ticked when neither team was at home. Otherwise Team 1 was the home side."),
     "goals1": ("Team 1 Score", None),
     "goals2": ("Team 2 Score", None),
+    "xg1": ("Team 1 xG", "From the match report; blank if not entered"),
+    "xg2": ("Team 2 xG", "From the match report; blank if not entered"),
     "team1_before": ("Team 1 Pre-Game Elo", "Team 1's rating going into this game"),
     "team2_before": ("Team 2 Pre-Game Elo", "Team 2's rating going into this game"),
     "pregame_prediction": ("Pre-Game Prediction",
-                           "Who the ratings favoured before this game, and their win chance "
-                           "(a draw counts as half a win). Shows 'Debut for …' when a team "
+                           "Who the ratings favoured before this game, and their expected score "
+                           "(a draw counts as half a win), including home advantage for Team 1 "
+                           "when the game wasn't neutral.Shows 'Debut for …' when a team "
                            "was playing its first game, and 'Draw - 50.0%' when the ratings "
                            "were level."),
 }
@@ -256,6 +271,27 @@ def load_all():
 # ---------------------------------------------------------------------------
 # Streamlit pieces
 # ---------------------------------------------------------------------------
+def performance_table(rankings: pd.DataFrame) -> pd.DataFrame:
+    """Teams with xG data, ordered by performance rating, with the results rating alongside."""
+    if "performance_rating" not in rankings.columns:
+        return pd.DataFrame()
+    p = rankings[rankings["performance_rating"].notna()].copy()
+    if p.empty:
+        return p
+    p = p.sort_values("performance_rating", ascending=False)
+    p["performance_rank"] = range(1, len(p) + 1)
+    if {"xGF", "xGA", "xg_games"} <= set(p.columns):
+        games = p["xg_games"].where(p["xg_games"] > 0)
+        p["xg_diff_per_game"] = ((p["xGF"] - p["xGA"]) / games).round(2)
+    if "rating" in p.columns:
+        p["results_minus_performance"] = (p["rating"] - p["performance_rating"]).round(1)
+    if "rank" in p.columns:
+        p = p.rename(columns={"rank": "results_rank"})
+    cols = ["performance_rank", "team", "performance_rating", "xg_games", "xGF", "xGA",
+            "xg_diff_per_game", "rating", "results_rank", "results_minus_performance"]
+    return p[[c for c in cols if c in p.columns]]
+
+
 def show_table(df: pd.DataFrame, total: int, name: str, key: str):
     st.caption(f"Showing **{len(df):,}** of {total:,} rows")
     st.dataframe(df, width="stretch", hide_index=True, column_config=column_config(df))
@@ -382,7 +418,8 @@ def main():
 
     teams = global_team_filter(rankings, results)  # sidebar; applies to every tab
 
-    tab_rank, tab_pred, tab_res = st.tabs(["Rankings", "Predictions", "Results"])
+    tab_rank, tab_perf, tab_pred, tab_res = st.tabs(
+        ["Rankings", "Performance Rankings", "Predictions", "Results"])
 
     # --- Tab 1 · Rankings: selected teams pinned on top + every-column filters
     with tab_rank:
@@ -400,7 +437,32 @@ def main():
                 df = generic_filters(rankings, "rank")
             show_table(df, len(rankings), "rankings", "rank")
 
-    # --- Tab 2 · Predictions: global team filter + provisional ------------
+    # --- Tab 2 · Performance Rankings: the xG-based Elo, ranked -------------
+    with tab_perf:
+        if not empty(rankings):
+            perf = performance_table(rankings)
+            if perf.empty:
+                st.info("No xG entered yet. Add xg1/xg2 to the results sheet to see this table.")
+            else:
+                st.caption(
+                    "Elo built from xG instead of goals: who created and allowed the better "
+                    "chances, win or lose. Teams without any xG games are left out. "
+                    "The official ranking is still the Results Rating."
+                )
+                if teams:
+                    picked = perf[perf["team"].astype(str).isin(teams)]
+                    st.subheader("Selected team" + ("s" if len(teams) > 1 else ""))
+                    if picked.empty:
+                        st.info("No performance rating yet for: " + ", ".join(teams))
+                    else:
+                        st.dataframe(picked, width="stretch", hide_index=True,
+                                     column_config=column_config(picked))
+                    st.subheader("All teams")
+                with st.expander("Filters", expanded=False):
+                    df = generic_filters(perf, "perf")
+                show_table(df, len(perf), "performance_rankings", "perf")
+
+    # --- Tab 3 · Predictions: global team filter + provisional ------------
     with tab_pred:
         if not empty(predictions):
             df = by_teams(predictions, teams)
